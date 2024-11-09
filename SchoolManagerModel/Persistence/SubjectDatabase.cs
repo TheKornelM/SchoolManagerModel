@@ -4,7 +4,7 @@ using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-internal class SubjectDatabase : IAsyncSubjectDataHandler
+public class SubjectDatabase : IAsyncSubjectDataHandler
 {
     readonly SchoolDbContext _dbContext = new();
     public async Task<List<Mark>> GetStudentSubjectMarksAsync(Student student, Subject subject)

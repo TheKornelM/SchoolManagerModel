@@ -2,29 +2,27 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using SchoolManagerModel.Entities.UserModel;
 
-namespace SchoolManagerModel.Entities
+namespace SchoolManagerModel.Entities;
+
+public class Subject
 {
-    public class Subject
+    // Required for Entity Framework
+    public Subject()
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        required public string Name { get; set; }
-        required public Class Class { get; set; }
-        required public Teacher Teacher { get; set; }
-
-        // Required for Entity Framework
-        public Subject()
-        {
-
-        }
-
-        public Subject(string name, Class @class, Teacher teacher)
-        {
-            Name = name;
-            Class = @class;
-            Teacher = teacher;
-        }
-
-
     }
+
+    public Subject(string name, Class @class, Teacher teacher)
+    {
+        Name = name;
+        Class = @class;
+        Teacher = teacher;
+    }
+
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
+    public required string Name { get; set; }
+    public required Class Class { get; set; }
+    public required Teacher Teacher { get; set; }
 }

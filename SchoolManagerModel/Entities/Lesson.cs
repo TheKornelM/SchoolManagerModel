@@ -2,15 +2,16 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using SchoolManagerModel.Entities.UserModel;
 
-namespace SchoolManagerModel.Entities
+namespace SchoolManagerModel.Entities;
+
+public class Lesson
 {
-    public class Lesson
-    {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        public required string Name { get; set; }
-        required public Teacher TeacherId { get; set; }
-        public DateTime Beginning { get; set; }
-        public DateTime Ending { get; set; }
-    }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
+    public required string Name { get; set; }
+    public required Teacher TeacherId { get; set; }
+    public DateTime Beginning { get; set; }
+    public DateTime Ending { get; set; }
 }

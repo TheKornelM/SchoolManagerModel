@@ -1,9 +1,8 @@
-﻿namespace SchoolManagerModel.Entities
+﻿namespace SchoolManagerModel.Entities;
+
+public enum Role
 {
-    public enum Role
-    {
-        Student,
-        Teacher,
-        Administrator
-    }
+    Student,
+    Teacher,
+    Administrator
 }

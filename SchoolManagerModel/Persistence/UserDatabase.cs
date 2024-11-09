@@ -4,7 +4,7 @@ using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-internal class UserDatabase : IAsyncUserDataHandler
+public class UserDatabase : IAsyncUserDataHandler
 {
     readonly SchoolDbContext _dbContext = new();
 

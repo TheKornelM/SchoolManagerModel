@@ -2,18 +2,17 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using SchoolManagerModel.Entities.UserModel;
 
-namespace SchoolManagerModel.Entities
+namespace SchoolManagerModel.Entities;
+
+public class AssignedSubject
 {
-    public class AssignedSubject
-    {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        required public Subject Subject { get; set; }
-        required public Student Student { get; set; }
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
 
-        public List<Mark>? Marks { get; set; }
-
-        public bool GotGrade { get; set; }
-        public int? Mark { get; set; }
-    }
+    public required Subject Subject { get; set; }
+    public required Student Student { get; set; }
+    public List<Mark>? Marks { get; set; }
+    public bool GotGrade { get; set; }
+    public int? Mark { get; set; }
 }
