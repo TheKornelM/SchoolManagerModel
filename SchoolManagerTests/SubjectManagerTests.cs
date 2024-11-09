@@ -1,7 +1,9 @@
 ﻿using Moq;
 using SchoolManagerModel;
+using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
-using SchoolManagerModel.UserModel;
 
 namespace SchoolManagerTests
 {

@@ -1,4 +1,4 @@
-﻿namespace SchoolManagerModel
+﻿namespace SchoolManagerModel.Entities
 {
     public enum Role
     {

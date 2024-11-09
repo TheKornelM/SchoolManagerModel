@@ -1,5 +1,5 @@
 ﻿
-namespace SchoolManagerModel
+namespace SchoolManagerModel.Exceptions
 {
     [Serializable]
     public class ClassExistsException : Exception

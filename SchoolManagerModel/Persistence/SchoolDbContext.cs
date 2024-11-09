@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolManagerModel.UserModel;
+using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Utils;
 
 namespace SchoolManagerModel.Persistence;
 
@@ -10,7 +12,7 @@ public class SchoolDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Change password after first run!
-        var admin = new User("admin", HashStringMD5.GetHashedString("admin"), "admin@test.localhost", "firstName", "secondName")
+        var admin = new User("admin", HashStringMd5.GetHashedString("admin"), "admin@test.localhost", "firstName", "secondName")
         {
             Id = 1
         };

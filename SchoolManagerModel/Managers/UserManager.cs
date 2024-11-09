@@ -1,7 +1,9 @@
-﻿using SchoolManagerModel.Persistence;
-using SchoolManagerModel.UserModel;
+﻿using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Persistence;
+using SchoolManagerModel.Utils;
 
-namespace SchoolManagerModel;
+namespace SchoolManagerModel.Managers;
 
 public class UserManager(IAsyncUserDataHandler dataHandler)
 {
@@ -71,7 +73,7 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
             throw new Exception("Email already registered");
         }
 
-        user.Password = HashStringMD5.GetHashedString(user.Password);
+        user.Password = HashStringMd5.GetHashedString(user.Password);
 
         await _dataHandler.AddUserAsync(user);
     }

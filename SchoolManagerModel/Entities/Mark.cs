@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SchoolManagerModel.UserModel;
+using SchoolManagerModel.Entities.UserModel;
 
-namespace SchoolManagerModel
+namespace SchoolManagerModel.Entities
 {
     public class Mark
     {

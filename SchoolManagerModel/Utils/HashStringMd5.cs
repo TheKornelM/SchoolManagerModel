@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography;
 
-namespace SchoolManagerModel;
+namespace SchoolManagerModel.Utils;
 
-public static class HashStringMD5
+public static class HashStringMd5
 {
     public static string GetHashedString(string str)
     {
