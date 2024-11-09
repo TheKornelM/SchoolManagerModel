@@ -6,10 +6,10 @@ using SchoolManagerModel.UserModel;
 namespace SchoolManagerTests;
 
 [TestClass]
-public partial class LoginManagerTests
+public class LoginManagerTests
 {
-    readonly Mock<IAsyncUserDataHandler> _handler;
-    readonly LoginManager _manager;
+    private readonly Mock<IAsyncUserDataHandler> _handler;
+    private readonly LoginManager _manager;
 
     public LoginManagerTests()
     {
