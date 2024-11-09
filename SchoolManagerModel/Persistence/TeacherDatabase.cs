@@ -4,9 +4,9 @@ using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-public class TeacherDatabase : IAsyncTeacherDataHandler
+public class TeacherDatabase(SchoolDbContextBase dbContext) : IAsyncTeacherDataHandler
 {
-    readonly SchoolDbContext _dbContext = new();
+    private readonly SchoolDbContextBase _dbContext = dbContext;
 
     public async Task<List<User>> GetSubjectStudentsAsync(Subject subject)
     {
@@ -40,14 +40,6 @@ public class TeacherDatabase : IAsyncTeacherDataHandler
             .ToListAsync();
     }
 
-    public async Task<List<Subject>> GetAssignedSubjectsAsync(User user)
-    {
-        return await _dbContext.Subjects
-            .Include(x => x.Teacher).ThenInclude(x => x.User)
-            .Where(x => x.Teacher.User.Id == user.Id)
-            .ToListAsync();
-    }
-
     public async Task<List<Teacher>> GetTeachersAsync()
     {
         return await _dbContext.Teachers
@@ -58,5 +50,13 @@ public class TeacherDatabase : IAsyncTeacherDataHandler
     public async Task<Teacher?> GetTeacherByIdAsync(int teacherId)
     {
         return await _dbContext.Teachers.FirstOrDefaultAsync(x => x.Id == teacherId);
+    }
+
+    public async Task<List<Subject>> GetAssignedSubjectsAsync(User user)
+    {
+        return await _dbContext.Subjects
+            .Include(x => x.Teacher).ThenInclude(x => x.User)
+            .Where(x => x.Teacher.User.Id == user.Id)
+            .ToListAsync();
     }
 }
