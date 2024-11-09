@@ -1,6 +1,7 @@
 ﻿using SchoolManagerModel.Persistence;
+using SchoolManagerModel.Utils;
 
-namespace SchoolManagerModel;
+namespace SchoolManagerModel.Managers;
 
 public class LoginManager(IAsyncUserDataHandler schoolData)
 {
@@ -11,7 +12,7 @@ public class LoginManager(IAsyncUserDataHandler schoolData)
             ?? throw new Exception("User not found");
 
 
-        string hashedPassword = HashStringMD5.GetHashedString(password);
+        string hashedPassword = HashStringMd5.GetHashedString(password);
 
         if (hashedPassword != result.Password)
         {

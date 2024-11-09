@@ -1,8 +1,9 @@
-﻿using SchoolManagerModel.UserModel;
+﻿using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-internal interface IAsyncTeacherDataHandler
+public interface IAsyncTeacherDataHandler
 {
     public Task<List<User>> GetSubjectStudentsAsync(Subject subject);
     public Task<List<Class>> GetCurrentTaughtClassesAsync(Teacher user);

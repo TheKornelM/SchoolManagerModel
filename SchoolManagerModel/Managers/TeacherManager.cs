@@ -1,9 +1,10 @@
-﻿using SchoolManagerModel.Persistence;
-using SchoolManagerModel.UserModel;
+﻿using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Persistence;
 
-namespace SchoolManagerModel;
+namespace SchoolManagerModel.Managers;
 
-internal class TeacherManager(IAsyncTeacherDataHandler dataHandler)
+public class TeacherManager(IAsyncTeacherDataHandler dataHandler)
 {
     private readonly IAsyncTeacherDataHandler _dataHandler = dataHandler;
 

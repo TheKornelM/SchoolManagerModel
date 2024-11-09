@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolManagerModel.UserModel;
+using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-public class ClassDatabase : IAsyncClassDataHandler
+public class ClassDatabase(SchoolDbContextBase dbContext) : IAsyncClassDataHandler
 {
-    private readonly SchoolDbContext _dbContext = new();
+    private readonly SchoolDbContextBase _dbContext = dbContext;
 
     public async Task<List<Class>> GetClassesAsync()
     {

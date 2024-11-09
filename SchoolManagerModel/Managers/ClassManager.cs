@@ -1,7 +1,9 @@
-﻿using SchoolManagerModel.Persistence;
-using SchoolManagerModel.UserModel;
+﻿using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Exceptions;
+using SchoolManagerModel.Persistence;
 
-namespace SchoolManagerModel;
+namespace SchoolManagerModel.Managers;
 
 public class ClassManager(IAsyncClassDataHandler dataHandler)
 {

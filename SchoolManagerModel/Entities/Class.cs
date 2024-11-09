@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SchoolManagerModel;
+namespace SchoolManagerModel.Entities;
 
 public class Class
 {

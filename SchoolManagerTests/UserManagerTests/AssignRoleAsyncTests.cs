@@ -1,7 +1,8 @@
 ﻿using Moq;
 using SchoolManagerModel;
-using SchoolManagerModel.UserModel;
 using System.Linq;
+using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerTests.UserManagerTests;
 
@@ -37,6 +38,32 @@ public partial class UserManagerTests
         var assignedRole = await _userManager.GetRoleAsync(user);
         Assert.AreEqual(Role.Teacher, assignedRole);
 
+    }
+    
+    
+    [TestMethod]
+    public async Task GetRoleAsync_ShouldReturnStudent_WhenRoleIsNull()
+    {
+        _handler.Setup(dh => dh.GetRoleAsync(_testUser)).ReturnsAsync((Role?)null);
+
+        var result = await _userManager.GetRoleAsync(_testUser);
+        Assert.AreEqual(Role.Student, result);
+    }
+
+    [TestMethod]
+    public async Task AssignRoleAsync_ShouldThrowException_WhenUserNotFound()
+    {
+        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.Username)).ReturnsAsync(false);
+        await Assert.ThrowsExceptionAsync<Exception>(() => _userManager.AssignRoleAsync(_testUser, Role.Teacher));
+    }
+
+    [TestMethod]
+    public async Task AssignRoleAsync_ShouldAssignRole_WhenUserExists()
+    {
+        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.Username)).ReturnsAsync(true);
+
+        await _userManager.AssignRoleAsync(_testUser, Role.Teacher);
+        _handler.Verify(dh => dh.AssignRoleAsync(_testUser, Role.Teacher), Times.Once);
     }
 
     private void SetupUsernameExistsAsync(bool returnValue)

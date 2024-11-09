@@ -1,18 +1,20 @@
 ﻿using Moq;
 using SchoolManagerModel;
+using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Managers;
 using SchoolManagerModel.Persistence;
-using SchoolManagerModel.UserModel;
 
-namespace SchoolManager.Tests
+namespace SchoolManagerTests
 {
     [TestClass]
     public class SubjectManagerTests
     {
-        private Mock<IAsyncSubjectDataHandler> _mockDataHandler = new Mock<IAsyncSubjectDataHandler>();
-        private SubjectManager _subjectManager;
-        private Student _testStudent;
-        private Subject _testSubject;
-        private Mark _testMark;
+        private readonly Mock<IAsyncSubjectDataHandler> _mockDataHandler = new Mock<IAsyncSubjectDataHandler>();
+        private readonly SubjectManager _subjectManager;
+        private readonly Student _testStudent;
+        private readonly Subject _testSubject;
+        private readonly Mark _testMark;
 
         public SubjectManagerTests()
         {

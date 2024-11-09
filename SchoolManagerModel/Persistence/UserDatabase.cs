@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolManagerModel.UserModel;
+using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-internal class UserDatabase : IAsyncUserDataHandler
+public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
 {
-    readonly SchoolDbContext _dbContext = new();
+    private readonly SchoolDbContextBase _dbContext = dbContext;
 
     public async Task<User?> GetUserAsync(string username)
     {
@@ -15,7 +16,7 @@ internal class UserDatabase : IAsyncUserDataHandler
 
     public async Task<Role?> GetRoleAsync(User user)
     {
-        RoleRecord? roleRecord = await _dbContext.Roles
+        var roleRecord = await _dbContext.Roles
             .FirstOrDefaultAsync(currentUser => currentUser.UserId == user.Id);
 
         return roleRecord != null ? (Role?)roleRecord.RoleId : null;

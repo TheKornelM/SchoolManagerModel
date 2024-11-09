@@ -1,4 +1,5 @@
-﻿using SchoolManagerModel.UserModel;
+﻿using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 

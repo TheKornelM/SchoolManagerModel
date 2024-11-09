@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolManagerModel.UserModel;
+using SchoolManagerModel.Entities;
+using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-internal class SubjectDatabase : IAsyncSubjectDataHandler
+public class SubjectDatabase(SchoolDbContextBase dbContext) : IAsyncSubjectDataHandler
 {
-    readonly SchoolDbContext _dbContext = new();
+    private readonly SchoolDbContextBase _dbContext = dbContext;
+
     public async Task<List<Mark>> GetStudentSubjectMarksAsync(Student student, Subject subject)
     {
         return await _dbContext.Marks
@@ -36,26 +38,20 @@ internal class SubjectDatabase : IAsyncSubjectDataHandler
 
     public async Task AssignSubjectsToStudentAsync(Student student, List<Subject> subjects)
     {
-
         var dbStudent = _dbContext.Students
             .Include(x => x.Subjects)
             .FirstOrDefault(x => x.Id == student.Id);
 
-        if (dbStudent == null)
-        {
-            throw new Exception("Student not found");
-        }
+        if (dbStudent == null) throw new Exception("Student not found");
 
         dbStudent.Subjects = dbStudent.Subjects ?? [];
 
         foreach (var item in subjects)
-        {
             dbStudent.Subjects.Add(new AssignedSubject
             {
                 Subject = item,
                 Student = student
             });
-        }
 
         await _dbContext.SaveChangesAsync();
     }
@@ -70,7 +66,6 @@ internal class SubjectDatabase : IAsyncSubjectDataHandler
             .ToListAsync();
 
         return students;
-
     }
 
     public async Task<List<Mark>> GetStudentMarksAsync(Student student)
