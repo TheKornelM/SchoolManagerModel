@@ -1,6 +1,4 @@
 ﻿using Moq;
-using SchoolManagerModel;
-using System.Linq;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 
@@ -69,7 +67,7 @@ public partial class UserManagerTests
     private void SetupUsernameExistsAsync(bool returnValue)
     {
         _handler.Setup(m => m.UsernameExistsAsync(It.IsAny<string>()))
-            .Returns(Task.FromResult<bool>(returnValue));
+            .Returns(Task.FromResult(returnValue));
     }
 
 

@@ -7,8 +7,6 @@ namespace SchoolManagerModel.Managers;
 
 public class UserManager(IAsyncUserDataHandler dataHandler)
 {
-    readonly IAsyncUserDataHandler _dataHandler = dataHandler;
-
     public async Task<bool> IsAdminAsync(User user)
     {
         return await GetRoleAsync(user) == Role.Administrator;
@@ -21,34 +19,34 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
          * The student role is the default, so it is not stored
          * If there isn't an assigned role to the user, we handle the user as a student
          */
-        Role? userRole = await _dataHandler.GetRoleAsync(user);
+        Role? userRole = await dataHandler.GetRoleAsync(user);
         return userRole ?? Role.Student; // Return the role or default to Student
     }
 
 
     public async Task<bool> UserExistsAsync(User user)
     {
-        return await _dataHandler.UsernameExistsAsync(user.Username);
+        return await dataHandler.UsernameExistsAsync(user.Username);
     }
 
     public async Task<bool> EmailAlreadyRegisteredAsync(string email)
     {
-        return await _dataHandler.EmailAlreadyRegisteredAsync(email);
+        return await dataHandler.EmailAlreadyRegisteredAsync(email);
     }
 
     public async Task AddStudentAsync(Student student)
     {
-        await _dataHandler.AddStudentAsync(student);
+        await dataHandler.AddStudentAsync(student);
     }
 
     public async Task AddTeacherAsync(Teacher teacher)
     {
-        await _dataHandler.AddTeacherAsync(teacher);
+        await dataHandler.AddTeacherAsync(teacher);
     }
 
     public async Task AddAdminAsync(Admin admin)
     {
-        await _dataHandler.AddAdminAsync(admin);
+        await dataHandler.AddAdminAsync(admin);
     }
 
     public async Task AssignRoleAsync(User user, Role role)
@@ -58,7 +56,7 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
             throw new Exception("User not registered");
         }
 
-        await _dataHandler.AssignRoleAsync(user, role);
+        await dataHandler.AssignRoleAsync(user, role);
     }
 
     public async Task RegisterUserAsync(User user)
@@ -75,28 +73,28 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
 
         user.Password = HashStringMd5.GetHashedString(user.Password);
 
-        await _dataHandler.AddUserAsync(user);
+        await dataHandler.AddUserAsync(user);
     }
 
 
     public async Task<User?> GetUserByUsernameAsync(string username)
     {
-        if (!await UserExistsAsync(new User() { Username = username }))
+        if (!await UserExistsAsync(new User { Username = username }))
         {
             throw new Exception("User not found");
         }
 
-        return await _dataHandler.GetUserByUsernameAsync(username);
+        return await dataHandler.GetUserByUsernameAsync(username);
     }
 
     public async Task<List<User>> GetUsersAsync()
     {
-        return await _dataHandler.GetUsersAsync();
+        return await dataHandler.GetUsersAsync();
     }
 
     public async Task<Student> GetStudentByUserAsync(User user)
     {
-        var result = await _dataHandler.GetStudentByUserAsync(user);
+        var result = await dataHandler.GetStudentByUserAsync(user);
         return result ?? throw new Exception("Student not found");
     }
 }

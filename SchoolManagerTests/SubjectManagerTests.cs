@@ -10,7 +10,7 @@ namespace SchoolManagerTests
     [TestClass]
     public class SubjectManagerTests
     {
-        private readonly Mock<IAsyncSubjectDataHandler> _mockDataHandler = new Mock<IAsyncSubjectDataHandler>();
+        private readonly Mock<IAsyncSubjectDataHandler> _mockDataHandler = new();
         private readonly SubjectManager _subjectManager;
         private readonly Student _testStudent;
         private readonly Subject _testSubject;

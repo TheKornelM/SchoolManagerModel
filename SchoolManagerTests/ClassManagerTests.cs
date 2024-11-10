@@ -1,5 +1,4 @@
 ﻿using Moq;
-using SchoolManagerModel;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Exceptions;
@@ -11,11 +10,11 @@ namespace SchoolManagerTests
     [TestClass]
     public class ClassManagerTests
     {
-        private readonly Mock<IAsyncClassDataHandler> _mockDataHandler = new Mock<IAsyncClassDataHandler>();
+        private readonly Mock<IAsyncClassDataHandler> _mockDataHandler = new();
         private readonly ClassManager _classManager;
 
-        private readonly Class _testClass = new Class { Id = 1, Name = "1/A" };
-        private readonly User _testStudent = new User("username", "password", "email", "firstName", "lastName");
+        private readonly Class _testClass = new() { Id = 1, Name = "1/A" };
+        private readonly User _testStudent = new("username", "password", "email", "firstName", "lastName");
         private readonly Subject _testSubject;
 
         public ClassManagerTests()

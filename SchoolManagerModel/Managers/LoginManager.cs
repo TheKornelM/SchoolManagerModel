@@ -5,10 +5,9 @@ namespace SchoolManagerModel.Managers;
 
 public class LoginManager(IAsyncUserDataHandler schoolData)
 {
-    readonly IAsyncUserDataHandler _schoolData = schoolData;
     public async Task LoginAsync(string username, string password)
     {
-        var result = await _schoolData.GetUserAsync(username)
+        var result = await schoolData.GetUserAsync(username)
             ?? throw new Exception("User not found");
 
 

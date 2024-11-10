@@ -7,31 +7,29 @@ namespace SchoolManagerModel.Managers;
 
 public class ClassManager(IAsyncClassDataHandler dataHandler)
 {
-    private readonly IAsyncClassDataHandler _dataHandler = dataHandler;
-
     public async Task<List<Class>> GetClassesAsync()
     {
-        return await _dataHandler.GetClassesAsync();
+        return await dataHandler.GetClassesAsync();
     }
 
     public async Task AddClassAsync(Class cls)
     {
-        if (await _dataHandler.ClassExistsAsync(cls))
+        if (await dataHandler.ClassExistsAsync(cls))
         {
             throw new ClassExistsException($"{cls.Name} class exists");
         }
 
-        await _dataHandler.AddClassAsync(cls);
+        await dataHandler.AddClassAsync(cls);
     }
 
     public async Task<List<User>> GetClassStudentsAsync(Class cls)
     {
-        return await _dataHandler.GetClassStudentsAsync(cls);
+        return await dataHandler.GetClassStudentsAsync(cls);
     }
 
     public async Task<List<Subject>> GetClassSubjectsAsync(Class cls)
     {
-        return await _dataHandler.GetClassSubjectsAsync(cls);
+        return await dataHandler.GetClassSubjectsAsync(cls);
     }
 
 }
