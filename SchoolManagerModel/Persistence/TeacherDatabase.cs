@@ -6,16 +6,14 @@ namespace SchoolManagerModel.Persistence;
 
 public class TeacherDatabase(SchoolDbContextBase dbContext) : IAsyncTeacherDataHandler
 {
-    private readonly SchoolDbContextBase _dbContext = dbContext;
-
     public async Task<List<User>> GetSubjectStudentsAsync(Subject subject)
     {
-        var result = await _dbContext.AssignedSubjects
+        var result = await dbContext.AssignedSubjects
             .Where(x => x.Subject.Id == subject.Id)
             .Select(x => x.Subject.Id)
             .ToListAsync();
 
-        var students = await _dbContext.Users
+        var students = await dbContext.Users
             .Where(x => result.Contains(x.Id))
             .ToListAsync();
 
@@ -24,7 +22,7 @@ public class TeacherDatabase(SchoolDbContextBase dbContext) : IAsyncTeacherDataH
 
     public async Task<List<Subject>> GetCurrentTaughtSubjectsAsync(Teacher teacher)
     {
-        var result = await _dbContext.Subjects
+        var result = await dbContext.Subjects
             .Include(x => x.Teacher).ThenInclude(x => x.User)
             .Where(x => x.Teacher.User.Id == teacher.User.Id)
             .ToListAsync();
@@ -33,7 +31,7 @@ public class TeacherDatabase(SchoolDbContextBase dbContext) : IAsyncTeacherDataH
 
     public async Task<List<Class>> GetCurrentTaughtClassesAsync(Teacher teacher)
     {
-        return await _dbContext.Subjects
+        return await dbContext.Subjects
             .Include(x => x.Teacher)
             .Where(x => x.Teacher.Id == teacher.Id)
             .Select(x => x.Class)
@@ -42,19 +40,19 @@ public class TeacherDatabase(SchoolDbContextBase dbContext) : IAsyncTeacherDataH
 
     public async Task<List<Teacher>> GetTeachersAsync()
     {
-        return await _dbContext.Teachers
+        return await dbContext.Teachers
             .Include(x => x.User)
             .ToListAsync();
     }
 
     public async Task<Teacher?> GetTeacherByIdAsync(int teacherId)
     {
-        return await _dbContext.Teachers.FirstOrDefaultAsync(x => x.Id == teacherId);
+        return await dbContext.Teachers.FirstOrDefaultAsync(x => x.Id == teacherId);
     }
 
     public async Task<List<Subject>> GetAssignedSubjectsAsync(User user)
     {
-        return await _dbContext.Subjects
+        return await dbContext.Subjects
             .Include(x => x.Teacher).ThenInclude(x => x.User)
             .Where(x => x.Teacher.User.Id == user.Id)
             .ToListAsync();
