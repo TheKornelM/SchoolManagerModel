@@ -1,5 +1,4 @@
 ﻿using Moq;
-using SchoolManagerModel;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Managers;
@@ -10,13 +9,13 @@ namespace SchoolManagerTests.UserManagerTests;
 [TestClass]
 public partial class UserManagerTests
 {
-    readonly Mock<IAsyncUserDataHandler> _handler;
-    readonly UserManager _userManager;
+    private readonly Mock<IAsyncUserDataHandler> _handler;
+    private readonly UserManager _userManager;
 
-    private User _testUser;
-    private Student _testStudent;
-    private Teacher _testTeacher;
-    private Admin _testAdmin;
+    private readonly User _testUser;
+    private readonly Student _testStudent;
+    private readonly Teacher _testTeacher;
+    private readonly Admin _testAdmin;
 
     public UserManagerTests()
     {

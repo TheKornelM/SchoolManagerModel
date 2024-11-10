@@ -79,7 +79,7 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
 
     public async Task<User?> GetUserByUsernameAsync(string username)
     {
-        if (!await UserExistsAsync(new User() { Username = username }))
+        if (!await UserExistsAsync(new User { Username = username }))
         {
             throw new Exception("User not found");
         }

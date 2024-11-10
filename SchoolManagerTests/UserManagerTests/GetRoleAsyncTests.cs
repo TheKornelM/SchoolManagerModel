@@ -1,5 +1,4 @@
 ﻿using Moq;
-using SchoolManagerModel;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 
