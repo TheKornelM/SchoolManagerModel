@@ -1,9 +1,9 @@
 ﻿using System.Resources;
 using FluentValidation;
 
-namespace SchoolManagerModel.Validator;
+namespace SchoolManagerModel.Validators;
 
-internal class ConfirmPasswordValidator : AbstractValidator<(string password, string confirmPassword)>
+public class ConfirmPasswordValidator : AbstractValidator<(string password, string confirmPassword)>
 {
     public ConfirmPasswordValidator(ResourceManager resourceManager)
     {
