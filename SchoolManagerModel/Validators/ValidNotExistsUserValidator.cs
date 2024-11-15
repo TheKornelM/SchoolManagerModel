@@ -3,9 +3,9 @@ using FluentValidation;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Managers;
 
-namespace SchoolManagerModel.Validator;
+namespace SchoolManagerModel.Validators;
 
-internal class ValidNotExistsUserValidator : AbstractValidator<User>
+public class ValidNotExistsUserValidator : AbstractValidator<User>
 {
     public ValidNotExistsUserValidator(UserManager userManager, ResourceManager resourceManager)
     {
