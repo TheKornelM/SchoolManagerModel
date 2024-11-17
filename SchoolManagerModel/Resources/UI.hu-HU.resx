@@ -252,4 +252,10 @@
   <data name="UserNotFound" xml:space="preserve">
     <value>A felhasználó nem található!</value>
   </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Adminisztrátor</value>
+  </data>
 </root>
