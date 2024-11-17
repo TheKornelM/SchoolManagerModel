@@ -1,5 +1,5 @@
-﻿using System.Resources;
-using FluentValidation;
+﻿using FluentValidation;
+using System.Resources;
 
 namespace SchoolManagerModel.Validators;
 
