@@ -258,4 +258,10 @@
   <data name="Administrator" xml:space="preserve">
     <value>Adminisztrátor</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Összes kiválasztása</value>
+  </data>
+  <data name="UnselectAll" xml:space="preserve">
+    <value>Kijelölések törlése</value>
+  </data>
 </root>

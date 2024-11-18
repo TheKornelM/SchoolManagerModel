@@ -258,4 +258,10 @@
   <data name="Administrator" xml:space="preserve">
     <value>Administrator</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="UnselectAll" xml:space="preserve">
+    <value>UnselectAll</value>
+  </data>
 </root>
