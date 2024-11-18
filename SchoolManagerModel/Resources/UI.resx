@@ -262,6 +262,6 @@
     <value>Select all</value>
   </data>
   <data name="UnselectAll" xml:space="preserve">
-    <value>UnselectAll</value>
+    <value>Unselect All</value>
   </data>
 </root>

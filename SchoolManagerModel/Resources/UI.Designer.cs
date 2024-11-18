@@ -457,7 +457,7 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UnselectAll.
+        ///   Looks up a localized string similar to Unselect All.
         /// </summary>
         public static string UnselectAll {
             get {
