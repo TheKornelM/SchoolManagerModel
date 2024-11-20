@@ -270,4 +270,16 @@
   <data name="Name" xml:space="preserve">
     <value>Név</value>
   </data>
+  <data name="MustBeALetter" xml:space="preserve">
+    <value>Betűnek kell lennie</value>
+  </data>
+  <data name="CanContainOnly1Letter" xml:space="preserve">
+    <value>Csak 1 betű szerepelhet benne</value>
+  </data>
+  <data name="MustBeNumber" xml:space="preserve">
+    <value>Számnak kell lennie</value>
+  </data>
+  <data name="MustBeGreaterThan0" xml:space="preserve">
+    <value>0-nál nagyobbnak kell lennie</value>
+  </data>
 </root>

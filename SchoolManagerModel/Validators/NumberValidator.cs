@@ -9,6 +9,6 @@ public class NumberValidator : AbstractValidator<string>
     {
         RuleFor(a => a)
             .Must(x => int.TryParse(x, out var val))
-            .WithMessage("Invalid Number.");
+            .WithMessage(resourceManager.GetString("MustBeNumber"));
     }
 }
