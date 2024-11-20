@@ -264,4 +264,10 @@
   <data name="UnselectAll" xml:space="preserve">
     <value>Unselect All</value>
   </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

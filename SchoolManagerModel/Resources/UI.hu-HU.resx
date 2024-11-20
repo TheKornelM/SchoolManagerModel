@@ -264,4 +264,10 @@
   <data name="UnselectAll" xml:space="preserve">
     <value>Kijelölések törlése</value>
   </data>
+  <data name="ID" xml:space="preserve">
+    <value>Azonosító</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Név</value>
+  </data>
 </root>
