@@ -142,6 +142,15 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cam contain only one letter.
+        /// </summary>
+        public static string CanContainOnly1Letter {
+            get {
+                return ResourceManager.GetString("CanContainOnly1Letter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Class.
         /// </summary>
         public static string Class {
@@ -232,6 +241,15 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string ID {
+            get {
+                return ResourceManager.GetString("ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid value.
         /// </summary>
         public static string InvalidValue {
@@ -286,11 +304,38 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Must be a letter.
+        /// </summary>
+        public static string MustBeALetter {
+            get {
+                return ResourceManager.GetString("MustBeALetter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must be an email address!.
         /// </summary>
         public static string MustBeEmailAddress {
             get {
                 return ResourceManager.GetString("MustBeEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be greater than 0.
+        /// </summary>
+        public static string MustBeGreaterThan0 {
+            get {
+                return ResourceManager.GetString("MustBeGreaterThan0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must be a number.
+        /// </summary>
+        public static string MustBeNumber {
+            get {
+                return ResourceManager.GetString("MustBeNumber", resourceCulture);
             }
         }
         
@@ -309,6 +354,15 @@ namespace SchoolManagerModel.Resources {
         public static string MustNotBeEmpty {
             get {
                 return ResourceManager.GetString("MustNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -363,6 +417,15 @@ namespace SchoolManagerModel.Resources {
         public static string Select {
             get {
                 return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select all.
+        /// </summary>
+        public static string SelectAll {
+            get {
+                return ResourceManager.GetString("SelectAll", resourceCulture);
             }
         }
         
@@ -444,6 +507,15 @@ namespace SchoolManagerModel.Resources {
         public static string UnexpectedError {
             get {
                 return ResourceManager.GetString("UnexpectedError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unselect All.
+        /// </summary>
+        public static string UnselectAll {
+            get {
+                return ResourceManager.GetString("UnselectAll", resourceCulture);
             }
         }
         

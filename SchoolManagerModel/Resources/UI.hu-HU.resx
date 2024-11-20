@@ -253,9 +253,33 @@
     <value>A felhasználó nem található!</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value>Email address</value>
+    <value>Email cím</value>
   </data>
   <data name="Administrator" xml:space="preserve">
     <value>Adminisztrátor</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Összes kiválasztása</value>
+  </data>
+  <data name="UnselectAll" xml:space="preserve">
+    <value>Kijelölések törlése</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>Azonosító</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Név</value>
+  </data>
+  <data name="MustBeALetter" xml:space="preserve">
+    <value>Betűnek kell lennie</value>
+  </data>
+  <data name="CanContainOnly1Letter" xml:space="preserve">
+    <value>Csak 1 betű szerepelhet benne</value>
+  </data>
+  <data name="MustBeNumber" xml:space="preserve">
+    <value>Számnak kell lennie</value>
+  </data>
+  <data name="MustBeGreaterThan0" xml:space="preserve">
+    <value>0-nál nagyobbnak kell lennie</value>
   </data>
 </root>

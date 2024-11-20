@@ -37,22 +37,42 @@ public class SubjectDatabase(SchoolDbContextBase dbContext) : IAsyncSubjectDataH
     public async Task AssignSubjectsToStudentAsync(Student student, List<Subject> subjects)
     {
         var dbStudent = dbContext.Students
-            .Include(x => x.Subjects)
-            .FirstOrDefault(x => x.Id == student.Id);
+            .Where(x => x.Id == student.Id)
+            .Select(x => new
+            {
+                Student = x,
+                Subjects = x.Subjects ?? new List<AssignedSubject>()
+            })
+            .FirstOrDefault();
 
-        if (dbStudent == null) throw new Exception("Student not found");
+        if (dbStudent == null)
+            throw new Exception("Student not found");
 
-        dbStudent.Subjects = dbStudent.Subjects ?? [];
+        dbStudent.Student.Subjects = dbStudent.Subjects;
 
-        foreach (var item in subjects)
+        // Ensure all subjects are tracked by the DbContext
+        var dbSubjects = await dbContext.Subjects
+            .Where(s => subjects.Select(sub => sub.Id).Contains(s.Id))
+            .ToListAsync();
+
+        foreach (var dbSubject in dbSubjects)
+        {
+            if (dbStudent.Subjects.Any(subject => subject.Subject.Id == dbSubject.Id))
+            {
+                return;
+            }
+
             dbStudent.Subjects.Add(new AssignedSubject
             {
-                Subject = item,
-                Student = student
+                Subject = dbSubject,
+                Student = dbStudent.Student
             });
+
+        }
 
         await dbContext.SaveChangesAsync();
     }
+
 
     public async Task<List<Student>> GetSubjectStudentsAsync(Subject subject)
     {
