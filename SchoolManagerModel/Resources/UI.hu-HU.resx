@@ -253,7 +253,7 @@
     <value>A felhasználó nem található!</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value>Email address</value>
+    <value>Email cím</value>
   </data>
   <data name="Administrator" xml:space="preserve">
     <value>Adminisztrátor</value>
