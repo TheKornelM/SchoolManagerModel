@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolManagerModel.Utils;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolManagerModel.Entities.UserModel;
@@ -15,6 +16,8 @@ public class User
     public string FirstName { get; set; }
 
     public string LastName { get; set; }
+
+    public string Name => FullName.Get(FirstName, LastName);
 
     public User()
     {
