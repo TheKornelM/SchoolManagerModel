@@ -40,7 +40,7 @@ public class SubjectManager(IAsyncSubjectDataHandler dataHandler)
         return await dataHandler.GetSubjectStudentsAsync(subject);
     }
 
-    public async Task<List<Mark>> GetStudentMarkAsync(Student student)
+    public async Task<List<Mark>> GetStudentMarksAsync(Student student)
     {
         return await dataHandler.GetStudentMarksAsync(student);
     }
