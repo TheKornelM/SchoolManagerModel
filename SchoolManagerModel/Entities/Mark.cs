@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolManagerModel.Entities.UserModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Entities;
 

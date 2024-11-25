@@ -89,7 +89,9 @@ public class SubjectDatabase(SchoolDbContextBase dbContext) : IAsyncSubjectDataH
     public async Task<List<Mark>> GetStudentMarksAsync(Student student)
     {
         return await dbContext.Marks
-            .Include(x => x.Subject).ThenInclude(x => x.Teacher)
+            .Include(x => x.Subject)
+                .ThenInclude(x => x.Teacher)
+                    .ThenInclude(x => x.User)
             .Where(x => x.Student == student)
             .ToListAsync();
     }
