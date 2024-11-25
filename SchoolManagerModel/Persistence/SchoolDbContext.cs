@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolManagerModel.Entities;
-using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Utils;
 
 namespace SchoolManagerModel.Persistence;
@@ -14,7 +12,7 @@ public class SchoolDbContext : SchoolDbContextBase
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Change password after first run!
+        /* Change password after first run!
         var admin = new User("admin", HashStringMd5.GetHashedString("admin"), "admin@test.localhost", "firstName",
             "secondName")
         {
@@ -27,6 +25,8 @@ public class SchoolDbContext : SchoolDbContextBase
         {
             Id = 1
         };
-        modelBuilder.Entity<RoleRecord>().HasData(adminRole);
+        modelBuilder.Entity<RoleRecord>().HasData(adminRole);*/
+        var seeder = new EntityDataSeeder(modelBuilder);
+        seeder.SeedAllData();
     }
 }
