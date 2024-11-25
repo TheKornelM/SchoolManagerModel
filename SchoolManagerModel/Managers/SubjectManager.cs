@@ -6,9 +6,9 @@ namespace SchoolManagerModel.Managers;
 
 public class SubjectManager(IAsyncSubjectDataHandler dataHandler)
 {
-    public async Task AddSubjectMarkAsync(Student student, Subject subject, Mark mark)
+    public async Task AddSubjectMarkAsync(Mark mark)
     {
-        await CheckAssignedSubjectToStudentAsync(student, subject);
+        await CheckAssignedSubjectToStudentAsync(mark.Student, mark.Subject);
         await dataHandler.AddMarkAsync(mark);
     }
 
