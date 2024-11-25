@@ -17,7 +17,7 @@ public class User
 
     public string LastName { get; set; }
 
-    public string Name => FullName.Get(FirstName, LastName);
+    public string Name => CultureUtils.GetFullName(FirstName, LastName);
 
     public User()
     {
