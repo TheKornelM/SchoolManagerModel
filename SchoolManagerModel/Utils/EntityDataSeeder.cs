@@ -13,7 +13,7 @@ internal class EntityDataSeeder
     private User _studentUser;
 
     private Teacher _teacher;
-    private Student Student;
+    private Student _student;
 
     private Class _class1;
     private Class _class2;
@@ -48,6 +48,8 @@ internal class EntityDataSeeder
         _class1 = new Class() { Id = 1, Name = "1/B" };
         _class2 = new Class() { Id = 2, Name = "2/B" };
 
+        _student = new Student() { Id = 1, Class = _class1, User = _studentUser };
+
         _subject1 = new Subject()
         {
             Id = 1,
@@ -80,6 +82,8 @@ internal class EntityDataSeeder
         AddStudent();
         AddClasses();
         AddSubjects();
+        AddAssignedSubjects();
+        AddMarks();
     }
 
     public void AddAdmin()
@@ -130,9 +134,9 @@ internal class EntityDataSeeder
 
         _modelBuilder.Entity<Student>().HasData(new
         {
-            Id = 1,
+            Id = _student.Id,
             UserId = _studentUser.Id,
-            ClassId = _class1.Id
+            ClassId = _student.Class.Id
         });
     }
 
@@ -160,6 +164,48 @@ internal class EntityDataSeeder
             Name = _subject3.Name,
             ClassId = _subject3.Class.Id,
             TeacherId = _subject3.Teacher.Id
+        });
+    }
+
+    public void AddAssignedSubjects()
+    {
+        _modelBuilder.Entity<AssignedSubject>().HasData(new
+        {
+            Id = 1,
+            SubjectId = _subject1.Id,
+            StudentId = _student.Id,
+            GotGrade = false
+        });
+
+        _modelBuilder.Entity<AssignedSubject>().HasData(new
+        {
+            Id = 2,
+            SubjectId = _subject2.Id,
+            StudentId = _student.Id,
+            GotGrade = false
+        });
+    }
+
+    public void AddMarks()
+    {
+        _modelBuilder.Entity<Mark>().HasData(new
+        {
+            Id = 1,
+            Grade = 5,
+            StudentId = _student.Id,
+            SubjectId = _subject1.Id,
+            SubmitDate = DateTime.Now.AddDays(-1),
+            Notes = "First mark"
+        });
+
+        _modelBuilder.Entity<Mark>().HasData(new
+        {
+            Id = 2,
+            Grade = 3,
+            StudentId = _student.Id,
+            SubjectId = _subject1.Id,
+            SubmitDate = DateTime.Now,
+            Notes = "Second mark"
         });
     }
 }
