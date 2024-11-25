@@ -282,4 +282,7 @@
   <data name="MustBeGreaterThan0" xml:space="preserve">
     <value>Must be greater than 0</value>
   </data>
+  <data name="SubjectAndStudent" xml:space="preserve">
+    <value>Subject and student</value>
+  </data>
 </root>
