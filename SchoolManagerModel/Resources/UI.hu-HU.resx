@@ -285,4 +285,10 @@
   <data name="SubjectAndStudent" xml:space="preserve">
     <value>Tantárgyak és tanulók</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Dátum</value>
+  </data>
+  <data name="CurrentMarks" xml:space="preserve">
+    <value>Jelenlegi osztályzatok</value>
+  </data>
 </root>

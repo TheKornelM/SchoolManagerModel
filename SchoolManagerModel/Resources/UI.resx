@@ -285,4 +285,10 @@
   <data name="SubjectAndStudent" xml:space="preserve">
     <value>Subject and student</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="CurrentMarks" xml:space="preserve">
+    <value>Current marks</value>
+  </data>
 </root>

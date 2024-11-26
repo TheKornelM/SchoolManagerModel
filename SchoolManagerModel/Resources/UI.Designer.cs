@@ -205,6 +205,24 @@ namespace SchoolManagerModel.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current marks.
+        /// </summary>
+        public static string CurrentMarks {
+            get {
+                return ResourceManager.GetString("CurrentMarks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email address.
         /// </summary>
         public static string EmailAddress {
