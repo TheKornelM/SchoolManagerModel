@@ -52,9 +52,22 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
         await dbContext.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Fetch all users from database
+    /// </summary>
+    /// <returns>All users without password</returns>
     public async Task<List<User>> GetUsersAsync()
     {
-        return await dbContext.Users.ToListAsync();
+        return await dbContext.Users
+            .Select(user => new User()
+            {
+                Id = user.Id,
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+            })
+            .ToListAsync();
     }
 
     public async Task AddStudentAsync(Student student)
