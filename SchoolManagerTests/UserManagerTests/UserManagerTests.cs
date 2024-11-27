@@ -1,4 +1,5 @@
 ﻿using Moq;
+using SchoolManagerModel.DTOs;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Managers;
@@ -39,7 +40,13 @@ public partial class UserManagerTests
     [TestMethod]
     public async Task GetUsersAsync_ShouldReturnAllUsers()
     {
-        var users = new List<User> { _testUser, _testTeacher.User, _testAdmin.User };
+        var users = new List<User> { _testUser, _testTeacher.User, _testAdmin.User }.Select(user => new UserDto()
+        {
+            Username = user.Username,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email
+        }).ToList();
         _handler.Setup(dh => dh.GetUsersAsync()).ReturnsAsync(users);
 
         var result = await _userManager.GetUsersAsync();
