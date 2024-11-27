@@ -2,12 +2,6 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
   <Class Name="SchoolManagerModel.Exceptions.ClassExistsException">
     <Position X="10.5" Y="6" Width="4.25" />
-    <InheritanceLine Type="System.Exception" ManuallyRouted="true" FixedFromPoint="true">
-      <Path>
-        <Point X="12.625" Y="5.312" />
-        <Point X="12.625" Y="6" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Exceptions\ClassExistsException.cs</FileName>
@@ -82,11 +76,6 @@
       <HashCode>AAECAAAAAAAAAAAAAAIAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Subject.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="System.Exception" Collapsed="true">
-    <Position X="12" Y="4.75" Width="1.5" />
-    <TypeIdentifier />
-    <Lollipop Position="0.2" />
   </Class>
   <Enum Name="SchoolManagerModel.Entities.Role">
     <Position X="2" Y="7" Width="1.5" />
