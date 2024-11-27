@@ -96,7 +96,7 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
             .FirstOrDefaultAsync(x => x.User.Id == user.Id);
     }
 
-    public async Task<List<UserDto>> FilterUsers(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
+    public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
     {
         var query = dbContext.Users.AsQueryable();
 

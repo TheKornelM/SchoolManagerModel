@@ -18,6 +18,6 @@ public interface IAsyncUserDataHandler
     public Task AddTeacherAsync(Teacher teacher);
     public Task AddAdminAsync(Admin admin);
     public Task<Student?> GetStudentByUserAsync(User user);
-    public Task<List<UserDto>> FilterUsers(string? username = null, string? firstName = null, string? lastName = null, string? email = null);
+    public Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null);
 
 }

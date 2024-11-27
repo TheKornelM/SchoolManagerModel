@@ -99,9 +99,9 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
         return result ?? throw new Exception("Student not found");
     }
 
-    public async Task<List<UserDto>> FilterUsers(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
+    public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
     {
-        return await dataHandler.FilterUsers(username, firstName, lastName, email);
+        return await dataHandler.FilterUsersAsync(username, firstName, lastName, email);
     }
 }
 
