@@ -291,4 +291,10 @@
   <data name="CurrentMarks" xml:space="preserve">
     <value>Current marks</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="ResetFilters" xml:space="preserve">
+    <value>Reset filters</value>
+  </data>
 </root>

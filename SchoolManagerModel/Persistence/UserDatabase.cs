@@ -101,16 +101,16 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
         var query = dbContext.Users.AsQueryable();
 
         if (!string.IsNullOrEmpty(username))
-            query = query.Where(u => u.Username.Contains(username));
+            query = query.Where(u => u.Username.ToLower().Contains(username.ToLower()));
 
         if (!string.IsNullOrEmpty(firstName))
-            query = query.Where(u => u.FirstName.Contains(firstName));
+            query = query.Where(u => u.FirstName.ToLower().Contains(firstName.ToLower()));
 
         if (!string.IsNullOrEmpty(lastName))
-            query = query.Where(u => u.LastName.Contains(lastName));
+            query = query.Where(u => u.LastName.ToLower().Contains(lastName.ToLower()));
 
         if (!string.IsNullOrEmpty(email))
-            query = query.Where(u => u.Email.Contains(email));
+            query = query.Where(u => u.Email.ToLower().Contains(email.ToLower()));
 
         return await query.Select(user => new UserDto()
         {

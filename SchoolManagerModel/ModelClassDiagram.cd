@@ -41,7 +41,7 @@
   <Class Name="SchoolManagerModel.Persistence.UserDatabase" BaseTypeListCollapsed="true">
     <Position X="18.75" Y="15.5" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAFQAAAAgAAEAAAAICAAAIAAAAAAAAQAQAABAA=</HashCode>
+      <HashCode>AAAgAAAFQAAAAgAAEAAAAICAAAIAAAAAAAAQAQAABQA=</HashCode>
       <FileName>Persistence\UserDatabase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -77,7 +77,7 @@
   <Class Name="SchoolManagerModel.Managers.UserManager">
     <Position X="18.75" Y="8" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAVQAAAAAAAEAgAAICAAAIAAAAAAAAQAAgABAA=</HashCode>
+      <HashCode>AAAAAAAVQAAAAAAAEAgAAICAAAIAAAAAAAAQAAgABQA=</HashCode>
       <FileName>Managers\UserManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -103,9 +103,9 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="SchoolManagerModel.Persistence.IAsyncUserDataHandler">
-    <Position X="19" Y="12" Width="3.5" />
+    <Position X="19" Y="11.75" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAFQAAAAgAAEAAAAICAAAIAAAAAAAAQAQAABAA=</HashCode>
+      <HashCode>AAAgAAAFQAAAAgAAEAAAAICAAAIAAAAAAAAQAQAABQA=</HashCode>
       <FileName>Persistence\IAsyncUserDataHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
