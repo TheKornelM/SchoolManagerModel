@@ -291,4 +291,10 @@
   <data name="CurrentMarks" xml:space="preserve">
     <value>Jelenlegi osztályzatok</value>
   </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Szűrés</value>
+  </data>
+  <data name="ResetFilters" xml:space="preserve">
+    <value>Szűrők törlése</value>
+  </data>
 </root>

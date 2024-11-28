@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SchoolManagerModel.DTOs;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 
@@ -56,12 +57,11 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
     /// Fetch all users from database
     /// </summary>
     /// <returns>All users without password</returns>
-    public async Task<List<User>> GetUsersAsync()
+    public async Task<List<UserDto>> GetUsersAsync()
     {
         return await dbContext.Users
-            .Select(user => new User()
+            .Select(user => new UserDto()
             {
-                Id = user.Id,
                 Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
@@ -94,5 +94,30 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
         return await dbContext.Students
             .Include(x => x.User)
             .FirstOrDefaultAsync(x => x.User.Id == user.Id);
+    }
+
+    public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
+    {
+        var query = dbContext.Users.AsQueryable();
+
+        if (!string.IsNullOrEmpty(username))
+            query = query.Where(u => u.Username.ToLower().Contains(username.ToLower()));
+
+        if (!string.IsNullOrEmpty(firstName))
+            query = query.Where(u => u.FirstName.ToLower().Contains(firstName.ToLower()));
+
+        if (!string.IsNullOrEmpty(lastName))
+            query = query.Where(u => u.LastName.ToLower().Contains(lastName.ToLower()));
+
+        if (!string.IsNullOrEmpty(email))
+            query = query.Where(u => u.Email.ToLower().Contains(email.ToLower()));
+
+        return await query.Select(user => new UserDto()
+        {
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Username = user.Username,
+        }).ToListAsync();
     }
 }

@@ -1,4 +1,5 @@
-﻿using SchoolManagerModel.Entities;
+﻿using SchoolManagerModel.DTOs;
+using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Persistence;
 using SchoolManagerModel.Utils;
@@ -87,7 +88,7 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
         return await dataHandler.GetUserByUsernameAsync(username);
     }
 
-    public async Task<List<User>> GetUsersAsync()
+    public async Task<List<UserDto>> GetUsersAsync()
     {
         return await dataHandler.GetUsersAsync();
     }
@@ -96,6 +97,11 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
     {
         var result = await dataHandler.GetStudentByUserAsync(user);
         return result ?? throw new Exception("Student not found");
+    }
+
+    public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
+    {
+        return await dataHandler.FilterUsersAsync(username, firstName, lastName, email);
     }
 }
 
