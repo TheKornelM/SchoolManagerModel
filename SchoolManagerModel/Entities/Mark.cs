@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Utils;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Entities;
 
@@ -16,4 +17,6 @@ public class Mark
 
     public required DateTime SubmitDate { get; set; }
     public string Notes { get; set; } = string.Empty;
+
+    public string Date => CultureUtils.GetTimeString(SubmitDate);
 }

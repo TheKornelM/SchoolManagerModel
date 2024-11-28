@@ -282,4 +282,19 @@
   <data name="MustBeGreaterThan0" xml:space="preserve">
     <value>Must be greater than 0</value>
   </data>
+  <data name="SubjectAndStudent" xml:space="preserve">
+    <value>Subject and student</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="CurrentMarks" xml:space="preserve">
+    <value>Current marks</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="ResetFilters" xml:space="preserve">
+    <value>Reset filters</value>
+  </data>
 </root>

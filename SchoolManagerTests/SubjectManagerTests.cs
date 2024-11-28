@@ -1,5 +1,4 @@
 ﻿using Moq;
-using SchoolManagerModel;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Managers;
@@ -55,7 +54,7 @@ namespace SchoolManagerTests
             _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject)).ReturnsAsync(true);
             _mockDataHandler.Setup(m => m.AddMarkAsync(_testMark)).Returns(Task.CompletedTask);
 
-            await _subjectManager.AddSubjectMarkAsync(_testStudent, _testSubject, _testMark);
+            await _subjectManager.AddSubjectMarkAsync(_testMark);
 
             _mockDataHandler.Verify(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject), Times.Once);
             _mockDataHandler.Verify(m => m.AddMarkAsync(_testMark), Times.Once);
@@ -66,7 +65,7 @@ namespace SchoolManagerTests
         {
             _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject)).ReturnsAsync(false);
 
-            await Assert.ThrowsExceptionAsync<Exception>(() => _subjectManager.AddSubjectMarkAsync(_testStudent, _testSubject, _testMark));
+            await Assert.ThrowsExceptionAsync<Exception>(() => _subjectManager.AddSubjectMarkAsync(_testMark));
             _mockDataHandler.Verify(m => m.AddMarkAsync(It.IsAny<Mark>()), Times.Never);
         }
 
@@ -112,7 +111,7 @@ namespace SchoolManagerTests
             var marks = new List<Mark> { _testMark };
             _mockDataHandler.Setup(m => m.GetStudentMarksAsync(_testStudent)).ReturnsAsync(marks);
 
-            var result = await _subjectManager.GetStudentMarkAsync(_testStudent);
+            var result = await _subjectManager.GetStudentMarksAsync(_testStudent);
 
             CollectionAssert.AreEqual(marks, result);
             _mockDataHandler.Verify(m => m.GetStudentMarksAsync(_testStudent), Times.Once);

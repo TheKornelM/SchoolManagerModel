@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SchoolManagerModel.Entities.UserModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Entities;
 
@@ -12,7 +12,6 @@ public class AssignedSubject
 
     public required Subject Subject { get; set; }
     public required Student Student { get; set; }
-    public List<Mark>? Marks { get; set; }
     public bool GotGrade { get; set; }
     public int? Mark { get; set; }
 }
