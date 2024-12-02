@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-public abstract class SchoolDbContextBase : DbContext
+public abstract class SchoolDbContextBase(DbContextOptions optionsBuilder) : IdentityDbContext<ApplicationUser>(optionsBuilder)
 {
     public DbSet<RoleRecord> Roles { get; set; }
     public DbSet<User> Users { get; set; }
@@ -16,7 +17,13 @@ public abstract class SchoolDbContextBase : DbContext
     public DbSet<AssignedSubject> AssignedSubjects { get; set; }
     public DbSet<Mark> Marks { get; set; }
 
-    protected abstract override void OnConfiguring(DbContextOptionsBuilder optionsBuilder);
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+    }
 
-    protected abstract override void OnModelCreating(ModelBuilder modelBuilder);
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+    }
 }
