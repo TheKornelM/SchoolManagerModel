@@ -2,7 +2,6 @@
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Persistence;
-using SchoolManagerModel.Utils;
 
 namespace SchoolManagerModel.Managers;
 
@@ -27,7 +26,7 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
 
     public async Task<bool> UserExistsAsync(User user)
     {
-        return await dataHandler.UsernameExistsAsync(user.Username);
+        return await dataHandler.UsernameExistsAsync(user.UserName);
     }
 
     public async Task<bool> EmailAlreadyRegisteredAsync(string email)
@@ -60,7 +59,7 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
         await dataHandler.AssignRoleAsync(user, role);
     }
 
-    public async Task RegisterUserAsync(User user)
+    /*public async Task RegisterUserAsync(User user)
     {
         if (await UserExistsAsync(user))
         {
@@ -72,15 +71,15 @@ public class UserManager(IAsyncUserDataHandler dataHandler)
             throw new Exception("Email already registered");
         }
 
-        user.Password = HashStringMd5.GetHashedString(user.Password);
+        //user.PasswordHash = HashStringMd5.GetHashedString(user.Password);
 
         await dataHandler.AddUserAsync(user);
-    }
+    }*/
 
 
     public async Task<User?> GetUserByUsernameAsync(string username)
     {
-        if (!await UserExistsAsync(new User { Username = username }))
+        if (!await UserExistsAsync(new User { UserName = username }))
         {
             throw new Exception("User not found");
         }

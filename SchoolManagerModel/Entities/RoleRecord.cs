@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchoolManagerModel.Entities;
 
-public class RoleRecord(int userId, int roleId)
+public class RoleRecord(string userId, int roleId)
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
-    public int UserId { get; set; } = userId;
+    public string UserId { get; set; } = userId;
     public int RoleId { get; set; } = roleId;
 }

@@ -29,20 +29,20 @@ internal class EntityDataSeeder
         _adminUser = new User("admin", HashStringMd5.GetHashedString("admin"), "admin@test.localhost", "firstName",
             "secondName")
         {
-            Id = 1
+            Id = "1"
         };
 
         _teacherUser = new User("teacher", HashStringMd5.GetHashedString("teacher"), "teacher@test.localhost", "Jakab",
            "Gipsz")
         {
-            Id = 2
+            Id = "2"
         };
         _teacher = new Teacher() { Id = 1, User = _teacherUser };
 
         _studentUser = new User("student", HashStringMd5.GetHashedString("student"), "student@test.localhost", "Béla",
            "Tóth")
         {
-            Id = 3
+            Id = "3"
         };
 
         _class1 = new Class() { Id = 1, Name = "1/B" };
@@ -91,7 +91,7 @@ internal class EntityDataSeeder
         _modelBuilder.Entity<User>().HasData(_adminUser);
 
         // Assign administrator role
-        var adminRole = new RoleRecord(1, 2)
+        var adminRole = new RoleRecord("1", 2)
         {
             Id = 1
         };
@@ -102,7 +102,7 @@ internal class EntityDataSeeder
     {
         _modelBuilder.Entity<User>().HasData(_teacherUser);
 
-        var teacherRole = new RoleRecord(2, 1)
+        var teacherRole = new RoleRecord("2", 1)
         {
             Id = 2
         };

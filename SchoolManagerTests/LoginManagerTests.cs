@@ -35,7 +35,7 @@ public class LoginManagerTests
 
         _handler.Setup(m => m.GetUserAsync(It.IsAny<string>()))
             .Returns(Task.FromResult<User?>(user));
-        await _manager.LoginAsync(user.Username, "incorrectPw");
+        await _manager.LoginAsync(user.UserName, "incorrectPw");
     }
 
     [TestMethod]
@@ -45,6 +45,6 @@ public class LoginManagerTests
         var userHashedPassword = new User("test", HashStringMd5.GetHashedString("test"), "test", "firstName", "lastName");
         _handler.Setup(m => m.GetUserAsync(It.IsAny<string>()))
             .Returns(Task.FromResult<User?>(userHashedPassword));
-        await _manager.LoginAsync(user.Username, user.Password);
+        await _manager.LoginAsync(user.UserName, user.PasswordHash);
     }
 }

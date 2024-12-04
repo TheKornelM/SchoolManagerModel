@@ -18,13 +18,13 @@ public partial class UserManagerTests
     public async Task RegisteredUserTest()
     {
         List<RoleRecord> roles = [];
-        var user = new User("test", "test", "test", "firstName", "lastName") { Id = 1 };
+        var user = new User("test", "test", "test", "firstName", "lastName") { Id = "1" };
 
         SetupUsernameExistsAsync(true);
         _handler.Setup(m => m.AssignRoleAsync(It.IsAny<User>(), It.IsAny<Role>())).Callback(() =>
         {
             // Assign teacher role
-            roles.Add(new RoleRecord(1, 1));
+            roles.Add(new RoleRecord("1", 1));
         });
 
         await _userManager.AssignRoleAsync(user, Role.Teacher);
@@ -37,8 +37,8 @@ public partial class UserManagerTests
         Assert.AreEqual(Role.Teacher, assignedRole);
 
     }
-    
-    
+
+
     [TestMethod]
     public async Task GetRoleAsync_ShouldReturnStudent_WhenRoleIsNull()
     {
@@ -51,14 +51,14 @@ public partial class UserManagerTests
     [TestMethod]
     public async Task AssignRoleAsync_ShouldThrowException_WhenUserNotFound()
     {
-        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.Username)).ReturnsAsync(false);
+        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.UserName)).ReturnsAsync(false);
         await Assert.ThrowsExceptionAsync<Exception>(() => _userManager.AssignRoleAsync(_testUser, Role.Teacher));
     }
 
     [TestMethod]
     public async Task AssignRoleAsync_ShouldAssignRole_WhenUserExists()
     {
-        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.Username)).ReturnsAsync(true);
+        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.UserName)).ReturnsAsync(true);
 
         await _userManager.AssignRoleAsync(_testUser, Role.Teacher);
         _handler.Verify(dh => dh.AssignRoleAsync(_testUser, Role.Teacher), Times.Once);

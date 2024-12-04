@@ -10,7 +10,7 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
     public async Task<User?> GetUserAsync(string username)
     {
         await dbContext.Users.LoadAsync();
-        return await dbContext.Users.FirstOrDefaultAsync(user => user.Username == username);
+        return await dbContext.Users.FirstOrDefaultAsync(user => user.UserName == username);
     }
 
     public async Task<Role?> GetRoleAsync(User user)
@@ -23,13 +23,13 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
 
     public async Task<bool> UsernameExistsAsync(string username)
     {
-        return await dbContext.Users.AnyAsync(user => user.Username == username);
+        return await dbContext.Users.AnyAsync(user => user.UserName == username);
     }
 
     public async Task<User?> GetUserByUsernameAsync(string username)
     {
         return await dbContext.Users
-            .FirstOrDefaultAsync(currentUser => currentUser.Username == username);
+            .FirstOrDefaultAsync(currentUser => currentUser.UserName == username);
     }
 
     public async Task<bool> EmailAlreadyRegisteredAsync(string email)
@@ -62,7 +62,7 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
         return await dbContext.Users
             .Select(user => new UserDto()
             {
-                Username = user.Username,
+                Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
@@ -101,7 +101,7 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
         var query = dbContext.Users.AsQueryable();
 
         if (!string.IsNullOrEmpty(username))
-            query = query.Where(u => u.Username.ToLower().Contains(username.ToLower()));
+            query = query.Where(u => u.UserName.ToLower().Contains(username.ToLower()));
 
         if (!string.IsNullOrEmpty(firstName))
             query = query.Where(u => u.FirstName.ToLower().Contains(firstName.ToLower()));
@@ -117,7 +117,7 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Username = user.Username,
+            Username = user.UserName,
         }).ToListAsync();
     }
 }

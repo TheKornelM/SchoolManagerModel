@@ -13,7 +13,7 @@ public class LoginManager(IAsyncUserDataHandler schoolData)
 
         string hashedPassword = HashStringMd5.GetHashedString(password);
 
-        if (hashedPassword != result.Password)
+        if (hashedPassword != result.PasswordHash)
         {
             throw new Exception("Invalid password!");
         }

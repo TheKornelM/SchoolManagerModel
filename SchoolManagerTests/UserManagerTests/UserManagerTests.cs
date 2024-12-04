@@ -31,7 +31,7 @@ public partial class UserManagerTests
     [TestMethod]
     public async Task UserExistsAsync_ShouldReturnTrue_WhenUserExists()
     {
-        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.Username)).ReturnsAsync(true);
+        _handler.Setup(dh => dh.UsernameExistsAsync(_testUser.UserName)).ReturnsAsync(true);
 
         var result = await _userManager.UserExistsAsync(_testUser);
         Assert.IsTrue(result);
@@ -42,7 +42,7 @@ public partial class UserManagerTests
     {
         var users = new List<User> { _testUser, _testTeacher.User, _testAdmin.User }.Select(user => new UserDto()
         {
-            Username = user.Username,
+            Username = user.UserName,
             FirstName = user.FirstName,
             LastName = user.LastName,
             Email = user.Email

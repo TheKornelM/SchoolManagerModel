@@ -10,14 +10,10 @@ public class TeacherDatabase(SchoolDbContextBase dbContext) : IAsyncTeacherDataH
     {
         var result = await dbContext.AssignedSubjects
             .Where(x => x.Subject.Id == subject.Id)
-            .Select(x => x.Subject.Id)
+            .Select(x => x.Student.User)
             .ToListAsync();
 
-        var students = await dbContext.Users
-            .Where(x => result.Contains(x.Id))
-            .ToListAsync();
-
-        return students;
+        return result;
     }
 
     public async Task<List<Subject>> GetCurrentTaughtSubjectsAsync(Teacher teacher)

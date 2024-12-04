@@ -9,7 +9,7 @@ public class ValidNotExistsUserValidator : AbstractValidator<User>
 {
     public ValidNotExistsUserValidator(UserManager userManager, ResourceManager resourceManager)
     {
-        RuleFor(x => x.Username)
+        RuleFor(x => x.UserName)
             .SetValidator(new UsernameValidator(resourceManager));
         RuleFor(x => x)
             .MustAsync(async (user, cancellation)
