@@ -1,8 +1,9 @@
-﻿using SchoolManagerModel.Utils;
+﻿using Microsoft.AspNetCore.Identity;
+using SchoolManagerModel.Utils;
 
 namespace SchoolManagerModel.Entities.UserModel;
 
-public class User : ApplicationUser
+public class User : IdentityUser
 {
     public string FirstName { get; set; }
 
