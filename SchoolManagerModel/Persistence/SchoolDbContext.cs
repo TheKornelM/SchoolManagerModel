@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolManagerModel.Utils;
 
 namespace SchoolManagerModel.Persistence;
 
@@ -7,14 +6,13 @@ public class SchoolDbContext(DbContextOptions optionsBuilder) : SchoolDbContextB
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //  optionsBuilder.UseSqlite("Data Source=school.db");
         base.OnConfiguring(optionsBuilder);
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        var seeder = new EntityDataSeeder(modelBuilder);
-        seeder.SeedAllData();
+        // var seeder = new EntityDataSeeder(modelBuilder);
+        // seeder.SeedAllData();
     }
 }

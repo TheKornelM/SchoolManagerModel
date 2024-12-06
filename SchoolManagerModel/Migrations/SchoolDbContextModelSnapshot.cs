@@ -181,22 +181,6 @@ namespace SchoolManagerModel.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("AssignedSubjects");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            GotGrade = false,
-                            StudentId = 1,
-                            SubjectId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            GotGrade = false,
-                            StudentId = 1,
-                            SubjectId = 2
-                        });
                 });
 
             modelBuilder.Entity("SchoolManagerModel.Entities.Class", b =>
@@ -214,18 +198,6 @@ namespace SchoolManagerModel.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Classes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "1/B"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "2/B"
-                        });
                 });
 
             modelBuilder.Entity("SchoolManagerModel.Entities.Mark", b =>
@@ -259,26 +231,6 @@ namespace SchoolManagerModel.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Marks");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Grade = 5,
-                            Notes = "First mark",
-                            StudentId = 1,
-                            SubjectId = 1,
-                            SubmitDate = new DateTime(2024, 12, 1, 22, 52, 7, 169, DateTimeKind.Local).AddTicks(1392)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Grade = 3,
-                            Notes = "Second mark",
-                            StudentId = 1,
-                            SubjectId = 1,
-                            SubmitDate = new DateTime(2024, 12, 2, 22, 52, 7, 170, DateTimeKind.Local).AddTicks(7307)
-                        });
                 });
 
             modelBuilder.Entity("SchoolManagerModel.Entities.RoleRecord", b =>
@@ -292,26 +244,13 @@ namespace SchoolManagerModel.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            RoleId = 2,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            RoleId = 1,
-                            UserId = 2
-                        });
                 });
 
             modelBuilder.Entity("SchoolManagerModel.Entities.Subject", b =>
@@ -339,29 +278,6 @@ namespace SchoolManagerModel.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Subjects");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClassId = 1,
-                            Name = "Matek1",
-                            TeacherId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ClassId = 1,
-                            Name = "Történelem",
-                            TeacherId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ClassId = 2,
-                            Name = "Testnevelés",
-                            TeacherId = 1
-                        });
                 });
 
             modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.Admin", b =>
@@ -372,8 +288,8 @@ namespace SchoolManagerModel.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -382,7 +298,48 @@ namespace SchoolManagerModel.Migrations
                     b.ToTable("Admins");
                 });
 
-            modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.ApplicationUser", b =>
+            modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClassId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClassId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -400,6 +357,14 @@ namespace SchoolManagerModel.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -446,124 +411,6 @@ namespace SchoolManagerModel.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.Student", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClassId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ClassId = 1,
-                            UserId = 3
-                        });
-                });
-
-            modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.Teacher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Teachers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            UserId = 2
-                        });
-                });
-
-            modelBuilder.Entity("SchoolManagerModel.Entities.UserModel.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "admin@test.localhost",
-                            FirstName = "firstName",
-                            LastName = "secondName",
-                            Password = "21232F297A57A5A743894A0E4A801FC3",
-                            Username = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "teacher@test.localhost",
-                            FirstName = "Jakab",
-                            LastName = "Gipsz",
-                            Password = "8D788385431273D11E8B43BB78F3AA41",
-                            Username = "teacher"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Email = "student@test.localhost",
-                            FirstName = "Béla",
-                            LastName = "Tóth",
-                            Password = "CD73502828457D15655BBD7A63FB0BC8",
-                            Username = "student"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -575,7 +422,7 @@ namespace SchoolManagerModel.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SchoolManagerModel.Entities.UserModel.ApplicationUser", null)
+                    b.HasOne("SchoolManagerModel.Entities.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -584,7 +431,7 @@ namespace SchoolManagerModel.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SchoolManagerModel.Entities.UserModel.ApplicationUser", null)
+                    b.HasOne("SchoolManagerModel.Entities.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -599,7 +446,7 @@ namespace SchoolManagerModel.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolManagerModel.Entities.UserModel.ApplicationUser", null)
+                    b.HasOne("SchoolManagerModel.Entities.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -608,7 +455,7 @@ namespace SchoolManagerModel.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SchoolManagerModel.Entities.UserModel.ApplicationUser", null)
+                    b.HasOne("SchoolManagerModel.Entities.UserModel.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -676,9 +523,7 @@ namespace SchoolManagerModel.Migrations
                 {
                     b.HasOne("SchoolManagerModel.Entities.UserModel.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -693,9 +538,7 @@ namespace SchoolManagerModel.Migrations
 
                     b.HasOne("SchoolManagerModel.Entities.UserModel.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Class");
 
@@ -706,9 +549,7 @@ namespace SchoolManagerModel.Migrations
                 {
                     b.HasOne("SchoolManagerModel.Entities.UserModel.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
