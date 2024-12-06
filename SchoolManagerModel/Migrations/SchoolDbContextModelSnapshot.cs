@@ -233,26 +233,6 @@ namespace SchoolManagerModel.Migrations
                     b.ToTable("Marks");
                 });
 
-            modelBuilder.Entity("SchoolManagerModel.Entities.RoleRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("SchoolManagerModel.Entities.Subject", b =>
                 {
                     b.Property<int>("Id")
