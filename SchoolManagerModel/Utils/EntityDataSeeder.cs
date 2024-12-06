@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 
@@ -207,5 +208,33 @@ internal class EntityDataSeeder
             SubmitDate = DateTime.Now,
             Notes = "Second mark"
         });
+    }
+
+    public void AddRoles()
+    {
+        var adminRoleId = "1";
+        var teacherRoleId = "2";
+        var studentRoleId = "3";
+
+        _modelBuilder.Entity<IdentityRole>().HasData(
+            new IdentityRole
+            {
+                Id = adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            },
+            new IdentityRole
+            {
+                Id = teacherRoleId,
+                Name = "Teacher",
+                NormalizedName = "TEACHER"
+            },
+            new IdentityRole
+            {
+                Id = studentRoleId,
+                Name = "Student",
+                NormalizedName = "STUDENT"
+            }
+        );
     }
 }
