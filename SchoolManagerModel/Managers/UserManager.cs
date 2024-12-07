@@ -1,106 +1,93 @@
-﻿using SchoolManagerModel.DTOs;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using SchoolManagerModel.DTOs;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 using SchoolManagerModel.Persistence;
 
-namespace SchoolManagerModel.Managers;
-
-public class UserManager(IAsyncUserDataHandler dataHandler)
+namespace SchoolManagerModel.Managers
 {
-    public async Task<bool> IsAdminAsync(User user)
+    public class UserManager : UserManager<User>
     {
-        return await GetRoleAsync(user) == Role.Administrator;
-    }
+        private readonly IAsyncUserDataHandler _dataHandler;
 
-    public async Task<Role> GetRoleAsync(User user)
-    {
-
-        /*
-         * The student role is the default, so it is not stored
-         * If there isn't an assigned role to the user, we handle the user as a student
-         */
-        Role? userRole = await dataHandler.GetRoleAsync(user);
-        return userRole ?? Role.Student; // Return the role or default to Student
-    }
-
-
-    public async Task<bool> UserExistsAsync(User user)
-    {
-        return await dataHandler.UsernameExistsAsync(user.UserName);
-    }
-
-    public async Task<bool> EmailAlreadyRegisteredAsync(string email)
-    {
-        return await dataHandler.EmailAlreadyRegisteredAsync(email);
-    }
-
-    public async Task AddStudentAsync(Student student)
-    {
-        await dataHandler.AddStudentAsync(student);
-    }
-
-    public async Task AddTeacherAsync(Teacher teacher)
-    {
-        await dataHandler.AddTeacherAsync(teacher);
-    }
-
-    public async Task AddAdminAsync(Admin admin)
-    {
-        await dataHandler.AddAdminAsync(admin);
-    }
-
-    public async Task AssignRoleAsync(User user, Role role)
-    {
-        if (!await UserExistsAsync(user))
+        public UserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators, IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger, IAsyncUserDataHandler dataHandler)
+            : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
         {
-            throw new Exception("User not registered");
+            _dataHandler = dataHandler;
         }
 
-        await dataHandler.AssignRoleAsync(user, role);
-    }
-
-    /*public async Task RegisterUserAsync(User user)
-    {
-        if (await UserExistsAsync(user))
+        public async Task<bool> IsAdminAsync(User user)
         {
-            throw new Exception("User already registered");
+            return await GetRoleAsync(user) == Role.Administrator;
         }
 
-        if (await EmailAlreadyRegisteredAsync(user.Email))
+        public async Task<Role> GetRoleAsync(User user)
         {
-            throw new Exception("Email already registered");
+            Role? userRole = await _dataHandler.GetRoleAsync(user);
+            return userRole ?? Role.Student; // Return the role or default to Student
         }
 
-        //user.PasswordHash = HashStringMd5.GetHashedString(user.Password);
-
-        await dataHandler.AddUserAsync(user);
-    }*/
-
-
-    public async Task<User?> GetUserByUsernameAsync(string username)
-    {
-        if (!await UserExistsAsync(new User { UserName = username }))
+        public async Task<bool> UserExistsAsync(User user)
         {
-            throw new Exception("User not found");
+            return await _dataHandler.UsernameExistsAsync(user.UserName);
         }
 
-        return await dataHandler.GetUserByUsernameAsync(username);
-    }
+        public async Task<bool> EmailAlreadyRegisteredAsync(string email)
+        {
+            return await _dataHandler.EmailAlreadyRegisteredAsync(email);
+        }
 
-    public async Task<List<UserDto>> GetUsersAsync()
-    {
-        return await dataHandler.GetUsersAsync();
-    }
+        public async Task AddStudentAsync(Student student)
+        {
+            await _dataHandler.AddStudentAsync(student);
+        }
 
-    public async Task<Student> GetStudentByUserAsync(User user)
-    {
-        var result = await dataHandler.GetStudentByUserAsync(user);
-        return result ?? throw new Exception("Student not found");
-    }
+        public async Task AddTeacherAsync(Teacher teacher)
+        {
+            await _dataHandler.AddTeacherAsync(teacher);
+        }
 
-    public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
-    {
-        return await dataHandler.FilterUsersAsync(username, firstName, lastName, email);
+        public async Task AddAdminAsync(Admin admin)
+        {
+            await _dataHandler.AddAdminAsync(admin);
+        }
+
+        public async Task AssignRoleAsync(User user, Role role)
+        {
+            if (!await UserExistsAsync(user))
+            {
+                throw new Exception("User not registered");
+            }
+
+            await _dataHandler.AssignRoleAsync(user, role);
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            if (!await UserExistsAsync(new User { UserName = username }))
+            {
+                throw new Exception("User not found");
+            }
+
+            return await _dataHandler.GetUserByUsernameAsync(username);
+        }
+
+        public async Task<List<UserDto>> GetUsersAsync()
+        {
+            return await _dataHandler.GetUsersAsync();
+        }
+
+        public async Task<Student> GetStudentByUserAsync(User user)
+        {
+            var result = await _dataHandler.GetStudentByUserAsync(user);
+            return result ?? throw new Exception("Student not found");
+        }
+
+        public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
+        {
+            return await _dataHandler.FilterUsersAsync(username, firstName, lastName, email);
+        }
     }
 }
-
