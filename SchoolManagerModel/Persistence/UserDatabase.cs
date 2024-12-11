@@ -15,10 +15,12 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
 
     public async Task<Role?> GetRoleAsync(User user)
     {
-        var roleRecord = await dbContext.Roles
-            .FirstOrDefaultAsync(currentUser => currentUser.UserId == user.Id);
+        throw new NotImplementedException();
+        //Role? roleRecord = null;
+        //await dbContext.Roles
+        //.FirstOrDefaultAsync(currentUser => currentUser.UserId == user.Id);
 
-        return roleRecord != null ? (Role?)roleRecord.RoleId : null;
+        //return roleRecord != null ? (Role?)roleRecord.RoleId : null;
     }
 
     public async Task<bool> UsernameExistsAsync(string username)
@@ -39,12 +41,13 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
 
     public async Task AssignRoleAsync(User user, Role role)
     {
-        // The student role is the default, so it is not stored
+        throw new NotImplementedException();
+        /* The student role is the default, so it is not stored
         if (role == Role.Student)
             return;
 
-        await dbContext.Roles.AddAsync(new RoleRecord(user.Id, (int)role));
-        await dbContext.SaveChangesAsync();
+        //await dbContext.Roles.AddAsync(new RoleRecord(user.Id, (int)role));
+        await dbContext.SaveChangesAsync();*/
     }
 
     public async Task AddUserAsync(User user)

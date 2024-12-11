@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
 
@@ -22,15 +23,30 @@ internal class EntityDataSeeder
     private Subject _subject2;
     private Subject _subject3;
 
+    private string _adminRoleId = "343b6250-c0cc-47ea-a25d-71e12556c336";
 
     public EntityDataSeeder(ModelBuilder modelBuilder)
     {
         _modelBuilder = modelBuilder;
-        _adminUser = new User("admin", HashStringMd5.GetHashedString("admin"), "admin@test.localhost", "firstName",
-            "secondName")
+        // Need to get hashed and salted pw
+        _adminUser = new User()
         {
-            Id = "1"
+            Id = "e53ad554-d26e-40a7-893d-c07b595375e5",
+            UserName = "admin",
+            NormalizedUserName = "ADMIN",
+            Email = "admin@test.localhost",
+            NormalizedEmail = "ADMIN@TEST.LOCALHOST",
+            FirstName = "admin",
+            LastName = "admin",
+            PasswordHash = "$2a$11$xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            SecurityStamp = "e53ad554-d26e-40a7-893d-c07b595375e5",
+            PhoneNumber = "063020",
+            EmailConfirmed = true,
+            TwoFactorEnabled = false,
+            LockoutEnabled = false
         };
+
+        //_adminUser.PasswordHash = new PasswordHasher<User>().HashPassword(_adminUser, "admin");
 
         _teacherUser = new User("teacher", HashStringMd5.GetHashedString("teacher"), "teacher@test.localhost", "Jakab",
            "Gipsz")
@@ -88,14 +104,15 @@ internal class EntityDataSeeder
 
     public void AddAdmin()
     {
+        // Add admin user
         _modelBuilder.Entity<User>().HasData(_adminUser);
 
-        // Assign administrator role
-        var adminRole = new RoleRecord("1", 2)
+        // Assign role to admin
+        /* _modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
         {
-            Id = 1
-        };
-        _modelBuilder.Entity<RoleRecord>().HasData(adminRole);
+            UserId = "e53ad554-d26e-40a7-893d-c07b595375e5",
+            RoleId = _adminRoleId
+        }); */
     }
 
     public void AddTeacher()
@@ -207,5 +224,32 @@ internal class EntityDataSeeder
             SubmitDate = DateTime.Now,
             Notes = "Second mark"
         });
+    }
+
+    public void AddRoles()
+    {
+        var teacherRoleId = "26c546a0-1c51-4696-9c42-6564a5599ed0";
+        var studentRoleId = "705997c1-005b-46cc-af8d-b1281ea8ece9";
+
+        _modelBuilder.Entity<IdentityRole>().HasData(
+            new IdentityRole
+            {
+                Id = _adminRoleId,
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            },
+            new IdentityRole
+            {
+                Id = teacherRoleId,
+                Name = "Teacher",
+                NormalizedName = "TEACHER"
+            },
+            new IdentityRole
+            {
+                Id = studentRoleId,
+                Name = "Student",
+                NormalizedName = "STUDENT"
+            }
+        );
     }
 }

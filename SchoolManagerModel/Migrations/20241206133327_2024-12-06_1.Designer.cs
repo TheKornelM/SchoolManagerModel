@@ -12,8 +12,8 @@ using SchoolManagerModel.Persistence;
 namespace SchoolManagerModel.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20241206121922_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241206133327_2024-12-06_1")]
+    partial class _20241206_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,26 @@ namespace SchoolManagerModel.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Teacher",
+                            NormalizedName = "TEACHER"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -234,26 +254,6 @@ namespace SchoolManagerModel.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Marks");
-                });
-
-            modelBuilder.Entity("SchoolManagerModel.Entities.RoleRecord", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("SchoolManagerModel.Entities.Subject", b =>
