@@ -3,7 +3,7 @@
 namespace SchoolManagerModel.Utils;
 public static class StringRoleConverter
 {
-    public static Role GetRole(string roleName)
+    public static Role? GetRole(string roleName)
     {
         roleName = roleName.ToLower();
         return roleName switch
@@ -11,7 +11,7 @@ public static class StringRoleConverter
             "admin" => Role.Administrator,
             "teacher" => Role.Teacher,
             "student" => Role.Student,
-            _ => throw new Exception()
+            _ => null
         };
     }
 
