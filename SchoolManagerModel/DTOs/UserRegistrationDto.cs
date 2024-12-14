@@ -1,9 +1,13 @@
 ﻿using SchoolManagerModel.Utils;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SchoolManagerModel.DTOs;
 public class UserRegistrationDto
 {
+    private string _role = string.Empty;
+    private int? _assignedClassId;
+
     [Required]
     [Display(Name = "Username")]
     public string Username { get; set; } = "";
@@ -34,10 +38,38 @@ public class UserRegistrationDto
 
     [Required]
     [Display(Name = "Role")]
-    public string Role { get; set; } = "";
+    public string Role
+    {
+        get => _role;
+        set
+        {
+            if (_role == value)
+            {
+                return;
+            }
 
-    public int? AssignedClassId { get; set; }
+            _role = value;
+            RoleModified.Invoke(this, EventArgs.Empty);
+        }
+    }
+    //public string Role { get; set; } = string.Empty;
+
+    public int? AssignedClassId
+    {
+        get => _assignedClassId;
+        set
+        {
+            _assignedClassId = value; 
+            ClassModified.Invoke(this, EventArgs.Empty);
+        }
+    }
+
     public List<int>? AssignedSubjects { get; set; }
 
     public string Name => CultureUtils.GetFullName(FirstName, LastName);
+    
+    [JsonIgnore]
+    public EventHandler RoleModified { get; set; } = delegate {  };
+    [JsonIgnore]
+    public EventHandler ClassModified { get; set; } = delegate { };
 }
