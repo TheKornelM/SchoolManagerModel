@@ -1,4 +1,7 @@
-﻿using Moq;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Moq;
 using SchoolManagerModel.DTOs;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
@@ -11,6 +14,7 @@ namespace SchoolManagerTests.UserManagerTests;
 public partial class UserManagerTests
 {
     private readonly Mock<IAsyncUserDataHandler> _handler;
+    private readonly Mock<IUserStore<User>> _userStore;
     private readonly UserManager _userManager;
 
     private readonly User _testUser;
@@ -21,7 +25,29 @@ public partial class UserManagerTests
     public UserManagerTests()
     {
         _handler = new Mock<IAsyncUserDataHandler>();
-        _userManager = new UserManager(_handler.Object);
+        _userStore = new Mock<IUserStore<User>>();
+        var options = Options.Create(new IdentityOptions());
+        var passwordHasher = new Mock<IPasswordHasher<User>>();
+        var userValidators = new List<IUserValidator<User>> { new Mock<IUserValidator<User>>().Object };
+        var passwordValidators = new List<IPasswordValidator<User>> { new Mock<IPasswordValidator<User>>().Object };
+        var keyNormalizer = new Mock<ILookupNormalizer>();
+        var errors = new IdentityErrorDescriber();
+        var services = new Mock<IServiceProvider>();
+        var logger = new Mock<ILogger<UserManager<User>>>();
+
+        // Initialize UserManager with mocks
+        _userManager = new UserManager(
+            _userStore.Object,
+            options,
+            passwordHasher.Object,
+            userValidators,
+            passwordValidators,
+            keyNormalizer.Object,
+            errors,
+            services.Object,
+            logger.Object,
+            _handler.Object
+        );
         _testUser = new User("username", "password", "email@test.com", "firstName", "lastName");
         _testStudent = new Student { Id = 1, User = _testUser, Class = new Class() };
         _testTeacher = new Teacher { Id = 2, User = new User("teacher", "password", "teacher@test.com", "firstName", "lastName") };
