@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace SchoolManagerModel.DTOs;
+
 public class UserRegistrationDto
 {
     private string _role = string.Empty;
@@ -18,7 +19,8 @@ public class UserRegistrationDto
     public string Email { get; set; } = "";
 
     [Required]
-    [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+    [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+        MinimumLength = 6)]
     [DataType(DataType.Password)]
     [Display(Name = "Password")]
     public string Password { get; set; } = "";
@@ -49,7 +51,7 @@ public class UserRegistrationDto
             }
 
             _role = value;
-            RoleModified.Invoke(this, EventArgs.Empty);
+            RoleModified.Invoke();
         }
     }
     //public string Role { get; set; } = string.Empty;
@@ -59,17 +61,16 @@ public class UserRegistrationDto
         get => _assignedClassId;
         set
         {
-            _assignedClassId = value; 
-            ClassModified.Invoke(this, EventArgs.Empty);
+            _assignedClassId = value;
+            ClassModified.Invoke();
         }
     }
 
     public List<int>? AssignedSubjects { get; set; }
 
     public string Name => CultureUtils.GetFullName(FirstName, LastName);
-    
-    [JsonIgnore]
-    public EventHandler RoleModified { get; set; } = delegate {  };
-    [JsonIgnore]
-    public EventHandler ClassModified { get; set; } = delegate { };
+
+    [JsonIgnore] public Func<Task> RoleModified { get; set; } = async () => await Task.CompletedTask;
+
+    [JsonIgnore] public Func<Task> ClassModified { get; set; } = async () => await Task.CompletedTask;
 }
