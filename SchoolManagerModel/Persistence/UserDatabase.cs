@@ -76,18 +76,21 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
     public async Task AddStudentAsync(Student student)
     {
         dbContext.Attach(student.Class);
+        dbContext.Attach(student.User);
         await dbContext.Students.AddAsync(student);
         await dbContext.SaveChangesAsync();
     }
 
     public async Task AddTeacherAsync(Teacher teacher)
     {
+        dbContext.Attach(teacher.User);
         await dbContext.Teachers.AddAsync(teacher);
         await dbContext.SaveChangesAsync();
     }
 
     public async Task AddAdminAsync(Admin admin)
     {
+        dbContext.Attach(admin.User);
         await dbContext.Admins.AddAsync(admin);
         await dbContext.SaveChangesAsync();
     }
@@ -99,7 +102,8 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
             .FirstOrDefaultAsync(x => x.User.Id == user.Id);
     }
 
-    public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
+    public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null,
+        string? lastName = null, string? email = null)
     {
         var query = dbContext.Users.AsQueryable();
 
