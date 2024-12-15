@@ -13,7 +13,7 @@ namespace SchoolManagerTests
         private readonly Mock<IAsyncClassDataHandler> _mockDataHandler = new();
         private readonly ClassManager _classManager;
 
-        private readonly Class _testClass = new() { Id = 1, Name = "1/A" };
+        private readonly Class _testClass = new() { Id = 1, Year = 1, SchoolClass = "A" };
         private readonly User _testStudent = new("username", "password", "email", "firstName", "lastName");
         private readonly Subject _testSubject;
 
@@ -31,15 +31,15 @@ namespace SchoolManagerTests
                 Teacher = new Teacher { User = new User("teacher", "pass", "email", "firstName", "lastName") }
             };
         }
-        
+
         [TestMethod]
         public async Task GetClassesAsync_ShouldReturnClasses()
         {
             var classes = new List<Class> { _testClass };
             _mockDataHandler.Setup(dh => dh.GetClassesAsync()).ReturnsAsync(classes);
-            
+
             var result = await _classManager.GetClassesAsync();
-            
+
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(_testClass, result[0]);
             _mockDataHandler.Verify(dh => dh.GetClassesAsync(), Times.Once);
@@ -66,7 +66,7 @@ namespace SchoolManagerTests
         {
             var students = new List<User> { _testStudent };
             _mockDataHandler.Setup(dh => dh.GetClassStudentsAsync(_testClass)).ReturnsAsync(students);
-            
+
             var result = await _classManager.GetClassStudentsAsync(_testClass);
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(_testStudent, result[0]);
@@ -78,7 +78,7 @@ namespace SchoolManagerTests
         {
             var subjects = new List<Subject> { _testSubject };
             _mockDataHandler.Setup(dh => dh.GetClassSubjectsAsync(_testClass)).ReturnsAsync(subjects);
-            
+
             var result = await _classManager.GetClassSubjectsAsync(_testClass);
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(_testSubject, result[0]);

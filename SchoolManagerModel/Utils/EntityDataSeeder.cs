@@ -49,20 +49,20 @@ internal class EntityDataSeeder
         //_adminUser.PasswordHash = new PasswordHasher<User>().HashPassword(_adminUser, "admin");
 
         _teacherUser = new User("teacher", HashStringMd5.GetHashedString("teacher"), "teacher@test.localhost", "Jakab",
-           "Gipsz")
+            "Gipsz")
         {
             Id = "2"
         };
         _teacher = new Teacher() { Id = 1, User = _teacherUser };
 
         _studentUser = new User("student", HashStringMd5.GetHashedString("student"), "student@test.localhost", "Béla",
-           "Tóth")
+            "Tóth")
         {
             Id = "3"
         };
 
-        _class1 = new Class() { Id = 1, Name = "1/B" };
-        _class2 = new Class() { Id = 2, Name = "2/B" };
+        _class1 = new Class() { Id = 1, Year = 1, SchoolClass = "B" };
+        _class2 = new Class() { Id = 2, Year = 2, SchoolClass = "A" };
 
         _student = new Student() { Id = 1, Class = _class1, User = _studentUser };
 

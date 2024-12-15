@@ -19,8 +19,9 @@ namespace SchoolManagerTests
         {
             _subjectManager = new SubjectManager(_mockDataHandler.Object);
 
-            var testClass = new Class { Id = 1, Name = "1/A" };
-            var testUser = new User("teacherUsername", "password", "teacherEmail", "teacherFirstName", "teacherLastName");
+            var testClass = new Class { Id = 1, Year = 1, SchoolClass = "A" };
+            var testUser = new User("teacherUsername", "password", "teacherEmail", "teacherFirstName",
+                "teacherLastName");
 
             // Setup test entities with required fields
             _testStudent = new Student
@@ -51,19 +52,22 @@ namespace SchoolManagerTests
         [TestMethod]
         public async Task AddSubjectMarkAsync_ShouldAddMark_WhenSubjectAssignedToStudent()
         {
-            _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject)).ReturnsAsync(true);
+            _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject))
+                .ReturnsAsync(true);
             _mockDataHandler.Setup(m => m.AddMarkAsync(_testMark)).Returns(Task.CompletedTask);
 
             await _subjectManager.AddSubjectMarkAsync(_testMark);
 
-            _mockDataHandler.Verify(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject), Times.Once);
+            _mockDataHandler.Verify(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject),
+                Times.Once);
             _mockDataHandler.Verify(m => m.AddMarkAsync(_testMark), Times.Once);
         }
 
         [TestMethod]
         public async Task AddSubjectMarkAsync_ShouldThrowException_WhenSubjectNotAssignedToStudent()
         {
-            _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject)).ReturnsAsync(false);
+            _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject))
+                .ReturnsAsync(false);
 
             await Assert.ThrowsExceptionAsync<Exception>(() => _subjectManager.AddSubjectMarkAsync(_testMark));
             _mockDataHandler.Verify(m => m.AddMarkAsync(It.IsAny<Mark>()), Times.Never);
@@ -73,7 +77,8 @@ namespace SchoolManagerTests
         public async Task GetStudentSubjectMarksAsync_ShouldReturnMarks_WhenSubjectAssignedToStudent()
         {
             var marks = new List<Mark> { _testMark };
-            _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject)).ReturnsAsync(true);
+            _mockDataHandler.Setup(m => m.IsAssignedSubjectToStudentAsync(_testStudent.User, _testSubject))
+                .ReturnsAsync(true);
             _mockDataHandler.Setup(m => m.GetStudentSubjectMarksAsync(_testStudent, _testSubject)).ReturnsAsync(marks);
 
             var result = await _subjectManager.GetStudentSubjectMarksAsync(_testStudent, _testSubject);
@@ -86,7 +91,8 @@ namespace SchoolManagerTests
         public async Task AssignSubjectsToStudentAsync_ShouldCallAssignSubjectsToStudent()
         {
             var subjects = new List<Subject> { _testSubject };
-            _mockDataHandler.Setup(m => m.AssignSubjectsToStudentAsync(_testStudent, subjects)).Returns(Task.CompletedTask);
+            _mockDataHandler.Setup(m => m.AssignSubjectsToStudentAsync(_testStudent, subjects))
+                .Returns(Task.CompletedTask);
 
             await _subjectManager.AssignSubjectsToStudentAsync(_testStudent, subjects);
 

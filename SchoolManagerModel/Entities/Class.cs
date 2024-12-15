@@ -7,24 +7,28 @@ public class Class
 {
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    public string Name { get; set; }
+
+    public required int Year { get; set; }
+    public required string SchoolClass { get; set; }
+
+    public string Name => $"{Year}/{SchoolClass}";
 
     public Class()
     {
-
     }
 
-    public Class(int year, char schoolClass)
+    public Class(int year, string schoolClass)
     {
         ArgumentOutOfRangeException.ThrowIfLessThan(year, 1);
 
-        schoolClass = schoolClass.ToString().ToUpper()[0];
+        var classChar = schoolClass.ToUpper()[0];
 
-        if (!Char.IsLetter(schoolClass))
+        if (!Char.IsLetter(classChar))
         {
             throw new FormatException("School class must be a letter!");
         }
 
-        Name = $"{year}/{schoolClass}";
+        Year = year;
+        SchoolClass = classChar.ToString();
     }
 }

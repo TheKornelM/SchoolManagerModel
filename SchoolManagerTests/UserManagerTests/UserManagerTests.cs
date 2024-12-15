@@ -49,9 +49,12 @@ public partial class UserManagerTests
             _handler.Object
         );
         _testUser = new User("username", "password", "email@test.com", "firstName", "lastName");
-        _testStudent = new Student { Id = 1, User = _testUser, Class = new Class() };
-        _testTeacher = new Teacher { Id = 2, User = new User("teacher", "password", "teacher@test.com", "firstName", "lastName") };
-        _testAdmin = new Admin { Id = 3, User = new User("admin", "password", "admin@test.com", "firstName", "lastName") };
+        _testStudent = new Student
+            { Id = 1, User = _testUser, Class = new Class { Id = 1, Year = 1, SchoolClass = "A" } };
+        _testTeacher = new Teacher
+            { Id = 2, User = new User("teacher", "password", "teacher@test.com", "firstName", "lastName") };
+        _testAdmin = new Admin
+            { Id = 3, User = new User("admin", "password", "admin@test.com", "firstName", "lastName") };
     }
 
     [TestMethod]
@@ -79,7 +82,4 @@ public partial class UserManagerTests
         Assert.AreEqual(3, result.Count);
         CollectionAssert.AreEqual(users, result);
     }
-
-
 }
-
