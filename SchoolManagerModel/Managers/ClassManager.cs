@@ -32,4 +32,8 @@ public class ClassManager(IAsyncClassDataHandler dataHandler)
         return await dataHandler.GetClassSubjectsAsync(cls);
     }
 
+    public async Task<bool> ClassExistsAsync(Class cls)
+    {
+        return await dataHandler.ClassExistsAsync(cls);
+    }
 }

@@ -1,8 +1,8 @@
 ﻿namespace SchoolManagerModel.DTOs;
 
-public class SelectSubjectDto
+public class SelectSubjectDto(int id, string name)
 {
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
+    public int Id { get; set; } = id;
+    public string Name { get; set; } = name;
     public bool IsSelected { get; set; } = false;
 }
