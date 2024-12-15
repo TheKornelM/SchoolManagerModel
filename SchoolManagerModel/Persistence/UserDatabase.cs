@@ -2,6 +2,7 @@
 using SchoolManagerModel.DTOs;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Extensions;
 
 namespace SchoolManagerModel.Persistence;
 
@@ -63,13 +64,8 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
     public async Task<List<UserDto>> GetUsersAsync()
     {
         return await dbContext.Users
-            .Select(user => new UserDto()
-            {
-                Username = user.UserName,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-            })
+            .Select(user => user.ToUserDto())
+            .AsNoTracking()
             .ToListAsync();
     }
 
@@ -119,12 +115,6 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
         if (!string.IsNullOrEmpty(email))
             query = query.Where(u => u.Email.ToLower().Contains(email.ToLower()));
 
-        return await query.Select(user => new UserDto()
-        {
-            Email = user.Email,
-            FirstName = user.FirstName,
-            LastName = user.LastName,
-            Username = user.UserName,
-        }).ToListAsync();
+        return await query.Select(user => user.ToUserDto()).ToListAsync();
     }
 }
