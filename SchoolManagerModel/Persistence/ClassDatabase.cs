@@ -4,40 +4,56 @@ using SchoolManagerModel.Entities.UserModel;
 
 namespace SchoolManagerModel.Persistence;
 
-public class ClassDatabase(SchoolDbContextBase dbContext) : IAsyncClassDataHandler
+public class ClassDatabase(IDbContextFactory<SchoolDbContext> dbContextFactory) : IAsyncClassDataHandler
 {
     public async Task<List<Class>> GetClassesAsync()
     {
-        return await dbContext.Classes.ToListAsync();
+        await using var context = await dbContextFactory.CreateDbContextAsync();
+        return await context.Classes
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task AddClassAsync(Class cls)
     {
-        await dbContext.Classes.AddAsync(cls);
-        await dbContext.SaveChangesAsync();
+        await using var context = await dbContextFactory.CreateDbContextAsync();
+        await context.Classes.AddAsync(cls);
+        await context.SaveChangesAsync();
     }
 
     public async Task<List<User>> GetClassStudentsAsync(Class cls)
     {
-        return await dbContext.Students
+        await using var context = await dbContextFactory.CreateDbContextAsync();
+        var result = await context.Students
+            .AsNoTracking()
             .Include(x => x.Class)
             .Where(x => x.Class.Id == cls.Id)
             .Include(x => x.User)
             .Select(x => x.User)
             .ToListAsync();
+
+        return result
+            .OrderBy(x => x.Name)
+            .ThenBy(x => x.Id)
+            .ToList();
     }
 
     public async Task<List<Subject>> GetClassSubjectsAsync(Class cls)
     {
-        return await dbContext.Subjects
+        await using var context = await dbContextFactory.CreateDbContextAsync();
+        return await context.Subjects
+            .AsNoTracking()
             .Include(x => x.Class)
             .Where(x => x.Class.Id == cls.Id)
+            .OrderBy(x => x.Name)
             .ToListAsync();
     }
 
     public async Task<bool> ClassExistsAsync(Class cls)
     {
-        return await dbContext.Classes
-            .AnyAsync(x => x.Name == cls.Name);
+        await using var context = await dbContextFactory.CreateDbContextAsync();
+        return await context.Classes
+            .AsNoTracking()
+            .AnyAsync(x => x.Year == cls.Year && x.SchoolClass == cls.SchoolClass);
     }
 }
