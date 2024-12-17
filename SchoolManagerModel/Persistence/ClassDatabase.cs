@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagerModel.Entities;
 using SchoolManagerModel.Entities.UserModel;
+using SchoolManagerModel.Exceptions;
 
 namespace SchoolManagerModel.Persistence;
 
@@ -16,6 +17,11 @@ public class ClassDatabase(IDbContextFactory<SchoolDbContext> dbContextFactory) 
 
     public async Task AddClassAsync(Class cls)
     {
+        if (await ClassExistsAsync(cls))
+        {
+            throw new ClassExistsException($"Class with name {cls.Name} already exists.");
+        }
+
         await using var context = await dbContextFactory.CreateDbContextAsync();
         await context.Classes.AddAsync(cls);
         await context.SaveChangesAsync();
