@@ -100,4 +100,14 @@ public class SubjectDatabase(IDbContextFactory<SchoolDbContext> dbContextFactory
             .Where(x => x.Student == student)
             .ToListAsync();
     }
+
+    public async Task<List<Subject>> GetStudentSubjectsAsync(Student student)
+    {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+        return await dbContext.AssignedSubjects
+            .AsNoTracking()
+            .Where(x => x.Student.Id == student.Id)
+            .Select(x => x.Subject)
+            .ToListAsync();
+    }
 }

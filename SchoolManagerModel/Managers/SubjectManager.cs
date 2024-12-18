@@ -44,4 +44,9 @@ public class SubjectManager(IAsyncSubjectDataHandler dataHandler)
     {
         return await dataHandler.GetStudentMarksAsync(student);
     }
+
+    public async Task<List<Subject>> GetStudentSubjectsAsync(Student student)
+    {
+        return await dataHandler.GetStudentSubjectsAsync(student);
+    }
 }

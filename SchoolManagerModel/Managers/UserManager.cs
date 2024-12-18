@@ -12,8 +12,13 @@ namespace SchoolManagerModel.Managers
     {
         private readonly IAsyncUserDataHandler _dataHandler;
 
-        public UserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor, IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators, IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer, IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger, IAsyncUserDataHandler dataHandler)
-            : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger)
+        public UserManager(IUserStore<User> store, IOptions<IdentityOptions> optionsAccessor,
+            IPasswordHasher<User> passwordHasher, IEnumerable<IUserValidator<User>> userValidators,
+            IEnumerable<IPasswordValidator<User>> passwordValidators, ILookupNormalizer keyNormalizer,
+            IdentityErrorDescriber errors, IServiceProvider services, ILogger<UserManager<User>> logger,
+            IAsyncUserDataHandler dataHandler)
+            : base(store, optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors,
+                services, logger)
         {
             _dataHandler = dataHandler;
         }
@@ -85,7 +90,13 @@ namespace SchoolManagerModel.Managers
             return result ?? throw new Exception("Student not found");
         }
 
-        public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null, string? lastName = null, string? email = null)
+        public async Task<Teacher?> GetTeacherByUserAsync(User user)
+        {
+            return await _dataHandler.GetTeacherByUserAsync(user);
+        }
+
+        public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null,
+            string? lastName = null, string? email = null)
         {
             return await _dataHandler.FilterUsersAsync(username, firstName, lastName, email);
         }

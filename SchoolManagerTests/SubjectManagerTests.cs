@@ -45,7 +45,8 @@ namespace SchoolManagerTests
                 Grade = 90,
                 Student = _testStudent,
                 Subject = _testSubject,
-                SubmitDate = DateTime.Now
+                SubmitDate = DateTime.Now,
+                Teacher = new Teacher { User = testUser }
             };
         }
 

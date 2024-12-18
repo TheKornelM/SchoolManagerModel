@@ -53,4 +53,6 @@ public class TeacherDatabase(SchoolDbContextBase dbContext) : IAsyncTeacherDataH
             .Where(x => x.Teacher.User.Id == user.Id)
             .ToListAsync();
     }
+
+
 }

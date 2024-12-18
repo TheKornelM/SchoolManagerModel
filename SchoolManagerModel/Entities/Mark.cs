@@ -14,7 +14,7 @@ public class Mark
     public int Grade { get; set; }
     public required Student Student { get; set; }
     public required Subject Subject { get; set; }
-
+    public required Teacher Teacher { get; set; }
     public required DateTime SubmitDate { get; set; }
     public string Notes { get; set; } = string.Empty;
 

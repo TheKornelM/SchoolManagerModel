@@ -12,4 +12,5 @@ public interface IAsyncSubjectDataHandler
     public Task AssignSubjectsToStudentAsync(Student student, List<Subject> subjects);
     public Task<List<Student>> GetSubjectStudentsAsync(Subject subject);
     public Task<List<Mark>> GetStudentMarksAsync(Student student);
+    public Task<List<Subject>> GetStudentSubjectsAsync(Student student);
 }

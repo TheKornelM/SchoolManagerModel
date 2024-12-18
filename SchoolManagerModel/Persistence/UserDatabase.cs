@@ -98,6 +98,11 @@ public class UserDatabase(SchoolDbContextBase dbContext) : IAsyncUserDataHandler
             .FirstOrDefaultAsync(x => x.User.Id == user.Id);
     }
 
+    public async Task<Teacher?> GetTeacherByUserAsync(User user)
+    {
+        return await dbContext.Teachers.FirstOrDefaultAsync(x => x.User.Id == user.Id);
+    }
+
     public async Task<List<UserDto>> FilterUsersAsync(string? username = null, string? firstName = null,
         string? lastName = null, string? email = null)
     {
