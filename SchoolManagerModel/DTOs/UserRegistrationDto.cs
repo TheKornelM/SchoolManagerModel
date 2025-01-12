@@ -1,6 +1,7 @@
 ﻿using SchoolManagerModel.Utils;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using SchoolManagerModel.Entities;
 
 namespace SchoolManagerModel.DTOs;
 
@@ -66,7 +67,7 @@ public class UserRegistrationDto
         }
     }
 
-    public List<int>? AssignedSubjects { get; set; }
+    public List<int> AssignedSubjects { get; set; } = [];
 
     public string Name => CultureUtils.GetFullName(FirstName, LastName);
 

@@ -14,6 +14,9 @@ public class ValidNotExistsUserValidator : AbstractValidator<User>
         RuleFor(x => x)
             .MustAsync(async (user, cancellation)
                 => await new UserNotExistsValidator(userManager).Validate(user, cancellation))
-            .WithMessage(resourceManager.GetString("UserAlreadyExists"));
+            .WithMessage(resourceManager.GetString("UserAlreadyExists"))
+            .MustAsync(async (user, cancellation)
+                => await new EmailNotRegisteredValidator(userManager).Validate(user, cancellation))
+            .WithMessage(resourceManager.GetString("EmailAddressAlreadyRegistered"));
     }
 }
